@@ -49,7 +49,6 @@ public class Conexion {
             sttm = cnx.createStatement();
             rst = sttm.executeQuery(sql);  //resultset
         } catch (ClassNotFoundException c) {
-            JOptionPane.showMessageDialog(null, "Error aqui conexion");
             JOptionPane.showMessageDialog(null, "ERROR: " + c.getMessage());
             System.exit(1);
         } catch (SQLException e) {
