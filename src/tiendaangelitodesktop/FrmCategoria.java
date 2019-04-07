@@ -35,7 +35,7 @@ public class FrmCategoria extends javax.swing.JDialog {
         rst = cat.categorias();
         model = new DefaultTableModel();
         model.addColumn("N° Categoría");
-        model.addColumn("categoría");
+        model.addColumn("Categoría");
         try {
             while (rst.next()){
                 datos[0] = rst.getString(1);
