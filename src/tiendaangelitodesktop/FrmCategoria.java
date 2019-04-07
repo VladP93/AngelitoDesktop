@@ -42,7 +42,12 @@ public class FrmCategoria extends javax.swing.JDialog {
                 datos[1] = rst.getObject(2);
                 model.addRow(datos);
             }
+            
             tblCategoria.setModel(model);
+            tblCategoria.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblCategoria.getColumnModel().getColumn(0).setMinWidth(0);
+            tblCategoria.getColumnModel().getColumn(0).setPreferredWidth(0);
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
         }
