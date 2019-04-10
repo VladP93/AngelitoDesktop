@@ -5,11 +5,14 @@
  */
 package tiendaangelitodesktop.editar;
 
+import dao.Categoria;
+
 /**
  *
  * @author vladi
  */
 public class FrmEditarCategoria extends javax.swing.JDialog {
+    Categoria cat;
 
     /**
      * Creates new form FrmEditarCategoria
@@ -19,11 +22,12 @@ public class FrmEditarCategoria extends javax.swing.JDialog {
         initComponents();
     }
     
-    public FrmEditarCategoria(java.awt.Frame parent, boolean modal,int idCategoria, String categoria) {
+    public FrmEditarCategoria(java.awt.Frame parent, boolean modal,Categoria cat, int idCategoria, String categoria) {
         super(parent, modal);
         initComponents();
         txfId.setText(String.valueOf(idCategoria));
         txfCategoria.setText(categoria);
+        this.cat = cat;
     }
 
     /**
@@ -51,6 +55,11 @@ public class FrmEditarCategoria extends javax.swing.JDialog {
         txfId.setEditable(false);
 
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -96,6 +105,14 @@ public class FrmEditarCategoria extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        int idCategoria = Integer.parseInt(txfId.getText());
+        String categoria = txfCategoria.getText();
+        
+        cat.editarCategoria(idCategoria, categoria);
+        this.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
