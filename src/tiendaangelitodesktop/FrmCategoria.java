@@ -107,6 +107,13 @@ public class FrmCategoria extends javax.swing.JDialog {
         tblCategoria = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         pnlCategorias.setBorder(javax.swing.BorderFactory.createTitledBorder("Adiministración de categorías"));
 
@@ -257,7 +264,7 @@ public class FrmCategoria extends javax.swing.JDialog {
             idCategoria = Integer.parseInt(tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0).toString());
             categoria = (String) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 1);
             
-            FrmEditarCategoria ed = new FrmEditarCategoria(new java.awt.Frame(), true, idCategoria, categoria);
+            FrmEditarCategoria ed = new FrmEditarCategoria(new java.awt.Frame(), true, cat, idCategoria, categoria);
             ed.setVisible(true);
             
         } else {
@@ -269,6 +276,10 @@ public class FrmCategoria extends javax.swing.JDialog {
         String filtro = txfBuscar.getText();
         filtrarTabla(filtro);
     }//GEN-LAST:event_txfBuscarKeyReleased
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        llenarTabla();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
