@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import dao.Categoria;
+import tiendaangelitodesktop.editar.FrmEditarCategoria;
 
 /**
  *
@@ -19,20 +20,47 @@ public class FrmCategoria extends javax.swing.JDialog {
     ResultSet rst = null;
     DefaultTableModel model; 
     Categoria cat = new Categoria();
+    java.awt.Frame parent;
 
     /**
      * Creates new form FrmCategoria
      */
     public FrmCategoria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.parent = parent;
         initComponents();
         llenarTabla();
     }
+    
     
     public void llenarTabla(){
         Object datos[] = new Object[2];
         rst = null;
         rst = cat.categorias();
+        model = new DefaultTableModel();
+        model.addColumn("N° Categoría");
+        model.addColumn("Categoría");
+        try {
+            while (rst.next()){
+                datos[0] = rst.getString(1);
+                datos[1] = rst.getObject(2);
+                model.addRow(datos);
+            }
+            
+            tblCategoria.setModel(model);
+            tblCategoria.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblCategoria.getColumnModel().getColumn(0).setMinWidth(0);
+            tblCategoria.getColumnModel().getColumn(0).setPreferredWidth(0);
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void filtrarTabla(String filtro){
+        Object datos[] = new Object[2];
+        rst = null;
+        rst = cat.filtrar(filtro);
         model = new DefaultTableModel();
         model.addColumn("N° Categoría");
         model.addColumn("Categoría");
@@ -92,10 +120,26 @@ public class FrmCategoria extends javax.swing.JDialog {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         lblBuscar.setText("Buscar:");
 
+        txfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txfBuscarKeyReleased(evt);
+            }
+        });
+
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         tblCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -192,6 +236,39 @@ public class FrmCategoria extends javax.swing.JDialog {
         }
         llenarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int idCategoria;
+        
+        if(tblCategoria.getSelectedRow()!=-1){
+            idCategoria = (Integer) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0);
+            cat.eliminarCategoria(idCategoria);
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione el registro que desea eliminar");
+        }
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int idCategoria;
+        String categoria;
+        
+        if(tblCategoria.getSelectedRow()!=-1){
+            idCategoria = Integer.parseInt(tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0).toString());
+            categoria = (String) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 1);
+            
+            FrmEditarCategoria ed = new FrmEditarCategoria(new java.awt.Frame(), true, idCategoria, categoria);
+            ed.setVisible(true);
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione el registro que desea editar");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void txfBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfBuscarKeyReleased
+        String filtro = txfBuscar.getText();
+        filtrarTabla(filtro);
+    }//GEN-LAST:event_txfBuscarKeyReleased
 
     /**
      * @param args the command line arguments
