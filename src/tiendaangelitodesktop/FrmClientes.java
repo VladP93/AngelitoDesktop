@@ -204,7 +204,7 @@ public class FrmClientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-String idPersona;
+String idPersona;   
                     
         idPersona =lblCliente.getText();
         
