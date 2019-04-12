@@ -205,7 +205,7 @@ public class FrmClientes extends javax.swing.JDialog {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 String idPersona;
-                
+                  
         idPersona =lblCliente.getText();
         
         if (idPersona.isEmpty()) {
