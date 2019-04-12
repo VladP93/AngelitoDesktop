@@ -221,7 +221,7 @@ String idPersona;
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int seleccion = jTable1.rowAtPoint(evt.getPoint());
-        lblCliente.setText(String.valueOf(jTable1.getValueAt(seleccion, 0)));
+        lblCliente.setText(String.valueOf(jTable1.getValueAt(seleccion, 0))); 
 // TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
 

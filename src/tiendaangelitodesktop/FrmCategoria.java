@@ -227,6 +227,8 @@ public class FrmCategoria extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        pnlCategorias.getAccessibleContext().setAccessibleName("Adiministración de categoríass");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 

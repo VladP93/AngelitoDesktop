@@ -52,6 +52,9 @@
           </Border>
         </Property>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Adiministraci&#xf3;n de categor&#xed;ass"/>
+      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
