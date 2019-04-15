@@ -14,13 +14,13 @@ import java.sql.ResultSet;
 public class Persona {
     Conexion cnx = new Conexion();
         
-    public void agregarPersona(String nombre, String apellido, String dui,  String nit, String direccion, String telefono,  String email,  String afp, String isss, String nat){
-        cnx.UID("INSERT INTO persona (per_nombre, per_apellido, per_dui, per_nit, per_direccion,per_telefono,per_email,per_nup,per_isss,per_natural) VALUES('"+nombre+"','"+apellido+"','"+dui+"','"+nit+"','"+direccion+"','"+telefono+"','"+email+"','"+afp+"','"+isss+"','"+nat+"' )");
+    public void agregarPersona(String nombre, String apellido, String dui,  String nit, String direccion, String telefono,  String email,  String afp, String isss, int nat){
+        cnx.UID("INSERT INTO persona (per_dui, per_nit,per_nup,per_isss,per_nombre, per_apellido, per_direccion,per_telefono,per_email,per_natural) VALUES('"+dui+"','"+nit+"','"+afp+"','"+isss+"','"+nombre+"','"+apellido+"','"+direccion+"','"+telefono+"','"+email+"','"+nat+"' )");
     }
     public void eliminarCategoria(int idCategoria) {
         cnx.UID("DELETE FROM Categoria WHERE cat_idCategoria="+idCategoria);
     }
-    public void editarCategoria(int idpersona, String nombre, String apellido, String dui,  String nit, String direccion, String telefono,  String email,  String afp, String isss, String nat) {
+    public void editarCategoria(int idpersona, String nombre, String apellido, String dui,  String nit, String direccion, String telefono,  String email,  String afp, String isss, int nat) {
         cnx.UID("UPDATE persona set per_nombre='"+nombre+"',per_apellido='"+apellido+"', per_dui='"+dui+"', per_nit='"+nit+"',per_direccion='"+direccion+"', per_telefono='"+telefono+"',per_email='"+email+"', per_nup='"+afp+"', per_isss='"+isss+"', per_natural='"+nat+"' WHERE cat_idCategoria="+idpersona);
     }
     public ResultSet cantidadCategoria() {
