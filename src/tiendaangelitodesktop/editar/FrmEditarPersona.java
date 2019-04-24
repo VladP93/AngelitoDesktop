@@ -40,6 +40,7 @@ Persona per;
         txtNIT.setText(nit);
         txtAFP1.setText(afp);
         txtISSS1.setText(isss);
+        txtEmail1.setText(email);
         this.per = per;
             
     }
