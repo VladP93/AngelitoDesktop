@@ -292,15 +292,17 @@ public void llenarTabla1()
     
     model = new DefaultTableModel();
     model.addColumn("ID");
-        model.addColumn("Nombres");
-        model.addColumn("Apellido");
+        
         model.addColumn("DUI");
         model.addColumn("NIT");
+        model.addColumn("AFP");
+        model.addColumn("ISSS");
+        model.addColumn("Nombres");
+        model.addColumn("Apellido");
         model.addColumn("Dirección");
         model.addColumn("Teléfono");
         model.addColumn("Email");
-        model.addColumn("AFP");
-        model.addColumn("ISSS");
+        
         model.addColumn("Natural");
         
         try {
@@ -320,7 +322,7 @@ public void llenarTabla1()
                 model.addRow(datos);
                 
             }
-            
+            jTable1.setModel(model);
   
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);

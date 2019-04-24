@@ -31,10 +31,11 @@ public class FrmClientes extends javax.swing.JDialog {
     
      public void llenarTabla()
 {
-    Object datos[] = new Object[10];
+    Object datos[] = new Object[5];
     rst = null;
         rst = per.ClienteProve();
     model = new DefaultTableModel();
+    model.addColumn("ID");
      model.addColumn("Nombre");
         model.addColumn("Apellido");
         model.addColumn("DUI");
@@ -45,8 +46,13 @@ public class FrmClientes extends javax.swing.JDialog {
                 datos[1] = rst.getObject(2);
                 datos[2] = rst.getObject(3);
                 datos[3] = rst.getObject(4);
+                datos[4] = rst.getObject(5);
                      model.addRow(datos);
             }
+            jTable1.setModel(model);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
   
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
@@ -54,10 +60,11 @@ public class FrmClientes extends javax.swing.JDialog {
         
 }
       public void filtrarTabla(String filtro){
-        Object datos[] = new Object[2];
+        Object datos[] = new Object[5];
         rst = null;
         rst = per.filtrarCliente(filtro);
         model = new DefaultTableModel();
+        model.addColumn("ID");
          model.addColumn("Nombre");
         model.addColumn("Apellido");
         model.addColumn("DUI");
@@ -68,9 +75,13 @@ public class FrmClientes extends javax.swing.JDialog {
                 datos[1] = rst.getObject(2);
                 datos[2] = rst.getObject(3);
                 datos[3] = rst.getObject(4);
+                datos[4] = rst.getObject(5);
                      model.addRow(datos);
             }
-            
+             jTable1.setModel(model);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
         }
@@ -207,11 +218,12 @@ public class FrmClientes extends javax.swing.JDialog {
 String idPersona;   
                     
         idPersona =lblCliente.getText();
+        int id = Integer.parseInt(idPersona);
         
         if (idPersona.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun registro", null, JOptionPane.ERROR_MESSAGE);
         } else {
-            per.agregarCliente(idPersona);
+            per.agregarCliente(id);
           
             JOptionPane.showMessageDialog(null, "Cliente ingresado de forma exitosa");
         }
