@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import dao.Persona;
 import javax.swing.table.DefaultTableModel;
+import tiendaangelitodesktop.editar.FrmEditarPersona;
 /**
  *
  * @author DELL
@@ -69,6 +70,7 @@ public class FrmPersonas extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         txtnatural = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -147,6 +149,13 @@ public class FrmPersonas extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jButton2.setText("Editar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlClientesLayout = new javax.swing.GroupLayout(pnlClientes);
         pnlClientes.setLayout(pnlClientesLayout);
         pnlClientesLayout.setHorizontalGroup(
@@ -155,17 +164,15 @@ public class FrmPersonas extends javax.swing.JDialog {
                 .addGap(96, 96, 96)
                 .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlClientesLayout.createSequentialGroup()
-                            .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(pnlClientesLayout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtNombre))
-                                .addGroup(pnlClientesLayout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(9, 9, 9))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnlClientesLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNombre))
+                            .addGroup(pnlClientesLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(pnlClientesLayout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addGap(29, 29, 29)
@@ -206,8 +213,10 @@ public class FrmPersonas extends javax.swing.JDialog {
                                 .addComponent(txtnatural, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pnlClientesLayout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jButton1)))
-                .addContainerGap(104, Short.MAX_VALUE))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)))
+                .addContainerGap(97, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         pnlClientesLayout.setVerticalGroup(
@@ -259,7 +268,9 @@ public class FrmPersonas extends javax.swing.JDialog {
                         .addGap(15, 15, 15)))
                 .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2)))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(45, Short.MAX_VALUE))
@@ -362,6 +373,33 @@ public void llenarTabla1()
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       int idPersona;
+        String nombre, apellido, dui, nit, direccion, telefono, email, afp, isss;
+        
+         if(jTable1.getSelectedRow()!=-1){
+            idPersona = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+            dui = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
+            nit = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 2);
+            afp = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 3);
+            isss = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 4);
+            nombre= (String) jTable1.getValueAt(jTable1.getSelectedRow(), 5);
+            apellido = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 6);
+            direccion = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 7);
+            telefono = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 8);
+            email = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 9);
+            
+             FrmEditarPersona ed = new FrmEditarPersona(new java.awt.Frame(), true, per, idPersona, nombre,apellido, dui, nit, direccion, telefono, email, afp, isss);
+            
+             ed.setVisible(true);
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione el registro que desea editar");
+        }
+            
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -408,6 +446,7 @@ public void llenarTabla1()
     private javax.swing.ButtonGroup Cargos;
     private javax.swing.JCheckBox cheNatural;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

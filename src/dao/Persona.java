@@ -20,8 +20,8 @@ public class Persona {
     public void eliminarCategoria(int idCategoria) {
         cnx.UID("DELETE FROM Categoria WHERE cat_idCategoria="+idCategoria);
     }
-    public void editarCategoria(int idpersona, String nombre, String apellido, String dui,  String nit, String direccion, String telefono,  String email,  String afp, String isss, int nat) {
-        cnx.UID("UPDATE persona set per_nombre='"+nombre+"',per_apellido='"+apellido+"', per_dui='"+dui+"', per_nit='"+nit+"',per_direccion='"+direccion+"', per_telefono='"+telefono+"',per_email='"+email+"', per_nup='"+afp+"', per_isss='"+isss+"', per_natural='"+nat+"' WHERE cat_idCategoria="+idpersona);
+    public void editarPersona(int idpersona, String dui, String nit, String afp,  String isss,String nombre, String apellido, String direccion, String telefono,  String email) {
+        cnx.UID("UPDATE persona set per_nombre='"+nombre+"',per_apellido='"+apellido+"', per_dui='"+dui+"', per_nit='"+nit+"',per_direccion='"+direccion+"', per_telefono='"+telefono+"',per_email='"+email+"', per_nup='"+afp+"', per_isss='"+isss+"' WHERE per_idPersona="+idpersona);
     }
     public ResultSet cantidadCategoria() {
         return cnx.getValores("SELECT COUNT(*) FROM persona");
@@ -45,4 +45,6 @@ public class Persona {
      public void agregarProveedor(int idPersona){
          cnx.UID("INSERT INTO proveedor (prov_idPersona)VALUES('"+idPersona+"' )") ;
      }
+
+    
 }

@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package tiendaangelitodesktop;
+import dao.Categoria;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import dao.Persona;
 import javax.swing.table.DefaultTableModel;
+import tiendaangelitodesktop.editar.FrmEditarCategoria;
 /**
  *
  * @author DELL
@@ -17,6 +19,7 @@ public class FrmClientes extends javax.swing.JDialog {
     ResultSet rst = null;
     DefaultTableModel model;
     Persona per = new Persona ();
+    Categoria cat = new Categoria();
     java.awt.Frame parent;
 
     /**
