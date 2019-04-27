@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import dao.Categoria;
 import tiendaangelitodesktop.editar.FrmEditarCategoria;
+import vladlidar.gui.Txfields;
 
 /**
  *
@@ -21,6 +22,7 @@ public class FrmCategoria extends javax.swing.JDialog {
     DefaultTableModel model; 
     Categoria cat = new Categoria();
     java.awt.Frame parent;
+    Txfields vtxf= new Txfields();
 
     /**
      * Creates new form FrmCategoria
