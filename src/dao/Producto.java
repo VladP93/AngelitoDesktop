@@ -25,6 +25,18 @@ public class Producto {
                 + "ON prod_idCategoria = cat_idCategoria");
     }
     
+    public ResultSet productos(){
+        return cnx.getValores("select * from producto");
+    }
+    
+    public ResultSet productos(String filtro){
+        return cnx.getValores("select * from producto where prod_nombre like '"+filtro+"%'");
+    }
+    
+    public ResultSet productosPorCodigo(String id){
+        return cnx.getValores("Select * from producto where prod_idproducto='"+id+"'");
+    }
+    
     public void agregarProducto(String codigo, String nombre, String descripcion, 
             Double precioDetalle, Double precioMayoreo, Double iva, int cantidadMayoreo,
             int CantidadMinimoAlerta, int Categoria){
