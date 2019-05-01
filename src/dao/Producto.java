@@ -49,6 +49,10 @@ public class Producto {
                 
     }
     
+    public void modificarCantidadProducto(String idProducto, int cantidad){
+        cnx.UID("UPDATE Producto SET prod_cantidad="+cantidad+" WHERE prod_idProducto="+idProducto+";");
+    }
+    
     public void eliminarProducto(String idProducto) {
         cnx.UID("DELETE FROM Producto WHERE prod_idProducto="+idProducto);
     }
