@@ -500,7 +500,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
         if(jtblProductos.getSelectedRow()!=-1){
             
             DefaultTableModel tm = (DefaultTableModel) jtblProductos.getModel();
-            nomProducto=tm.getValueAt(jtblProductos.getSelectedRow(),0).toString();
+            nomProducto=tm.getValueAt(jtblProductos.getSelectedRow(),1).toString();
             
             idProdEnTabla = prod.obtenerIdProducto(nomProducto);
            
@@ -582,11 +582,6 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
             
                 
                 
-//            idCategoria = Integer.parseInt(tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0).toString());
-//            categoria = (String) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 1);
-//
-//            FrmEditarCategoria ed = new FrmEditarCategoria(new java.awt.Frame(), true, cat, idCategoria, categoria);
-//            ed.setVisible(true);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione el registro que desea editar");
@@ -716,10 +711,11 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void llenarTabla() {
-        Object datos[] = new Object[9];
+        Object datos[] = new Object[10];
         ResultSet rst = null;
         rst = prod.mostrarProductos();
         model = new DefaultTableModel();
+        model.addColumn("Código");
         model.addColumn("Producto");
         model.addColumn("Precio Detalle");
         model.addColumn("Precio Mayoreo");
@@ -741,6 +737,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                 datos[6] = rst.getObject(7);
                 datos[7] = rst.getObject(8);
                 datos[8] = rst.getObject(9);
+                datos[9] = rst.getObject(10);
                 model.addRow(datos);
             }
             
@@ -772,10 +769,11 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
     public void filtrarTabla(String filtro){
 
         
-        Object datos[] = new Object[9];
+        Object datos[] = new Object[10];
         ResultSet rst = null;
         rst = prod.filtrarProductos(filtro);
         model = new DefaultTableModel();
+        model.addColumn("Código");
         model.addColumn("Producto");
         model.addColumn("Precio Detalle");
         model.addColumn("Precio Mayoreo");
@@ -799,6 +797,8 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                    datos[6] = rst.getObject(7);
                    datos[7] = rst.getObject(8);
                    datos[8] = rst.getObject(9);
+                   datos[9] = rst.getObject(10);
+                   
                    model.addRow(datos);
                }
                jtblProductos.setModel(model);

@@ -19,7 +19,7 @@ public class Producto {
     }
     
     public ResultSet mostrarProductos(){
-        return cnx.getValores("SELECT prod_nombre, prod_precio,prod_precioMayoreo,prod_iva,"
+        return cnx.getValores("SELECT prod_idProducto, prod_nombre, prod_precio,prod_precioMayoreo,prod_iva,"
                 + "prod_cantidadMayoreo,prod_cantidad,prod_cantidadMinAlerta,cat_categoria,"
                 + "prod_descripcion FROM producto INNER JOIN categoria "
                 + "ON prod_idCategoria = cat_idCategoria");
@@ -97,7 +97,7 @@ public class Producto {
     
     public ResultSet filtrarProductos(String filtro) {
                 
-        return cnx.getValores("SELECT prod_nombre,prod_precio,prod_precioMayoreo,prod_iva,"
+        return cnx.getValores("SELECT prod_idProducto, prod_nombre,prod_precio,prod_precioMayoreo,prod_iva,"
                 + "prod_cantidadMayoreo,prod_cantidad,prod_cantidadMinAlerta,cat_categoria,"
                 + "prod_descripcion FROM producto INNER JOIN categoria "
                 + "ON prod_idCategoria = cat_idCategoria "
