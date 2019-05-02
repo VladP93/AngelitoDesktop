@@ -5,21 +5,61 @@
  */
 package tiendaangelitodesktop.editar;
 
+import dao.Categoria;
+import dao.Producto;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Arnold
  */
 public class FrmEditarProducto extends javax.swing.JDialog {
+    Producto prod =new Producto();
+    Categoria cat = new Categoria();
+    
+    String codInicial;
+    String nomInicial;
+    int existenciaInicial;
 
     /**
      * Creates new form FrmEditarProducto
      */
     public FrmEditarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        
         initComponents();
+        llenarCategorias();
     }
+    
+    public FrmEditarProducto(java.awt.Frame parent, boolean modal,Producto prod, String codProdEd,
+                String nomProdEd,String descProdEd,Double precDetalleEd, Double precMayoreoEd,
+                Double ivaEd,int minMayoreoEd,int existenciaEd,int alertaEd,String nomCategoriaEd) {
+        super(parent, modal);
+        initComponents();
+        llenarCategorias();
+        
+        codInicial=codProdEd;
+        nomInicial=nomProdEd;
+        existenciaInicial=existenciaEd;
+        
+        txfCodProducto.setText(codProdEd);
+        txfNomProducto.setText(nomProdEd);
+        txfDescProducto.setText(descProdEd);
+        txfPrecDetalle.setText(String.valueOf(precDetalleEd));
+        txfPrecMayoreo.setText(String.valueOf(precMayoreoEd));
+        txfIva.setText(String.valueOf(ivaEd));
+        txfMinMayoreo.setText(String.valueOf(minMayoreoEd));
+        txfExistencia.setText(String.valueOf(existenciaEd));
+        txfAlerta.setText(String.valueOf(alertaEd));
+        cmbCategoria.setSelectedItem(nomCategoriaEd);
+        
+        
+        this.prod = prod;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,11 +82,11 @@ public class FrmEditarProducto extends javax.swing.JDialog {
         lblCategoria11 = new javax.swing.JLabel();
         lblCategoria10 = new javax.swing.JLabel();
         txfPrecDetalle = new javax.swing.JFormattedTextField();
-        txfPrecMayoreo2 = new javax.swing.JFormattedTextField();
-        txfIva2 = new javax.swing.JFormattedTextField();
-        txfMinMayoreo2 = new javax.swing.JFormattedTextField();
-        txfExistencia2 = new javax.swing.JFormattedTextField();
-        txfAlerta2 = new javax.swing.JFormattedTextField();
+        txfPrecMayoreo = new javax.swing.JFormattedTextField();
+        txfIva = new javax.swing.JFormattedTextField();
+        txfMinMayoreo = new javax.swing.JFormattedTextField();
+        txfExistencia = new javax.swing.JFormattedTextField();
+        txfAlerta = new javax.swing.JFormattedTextField();
         lblCategoria12 = new javax.swing.JLabel();
         lblCategoria13 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -84,15 +124,15 @@ public class FrmEditarProducto extends javax.swing.JDialog {
 
         txfPrecDetalle.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
-        txfPrecMayoreo2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txfPrecMayoreo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
-        txfIva2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txfIva.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
-        txfMinMayoreo2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txfMinMayoreo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
-        txfExistencia2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txfExistencia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
-        txfAlerta2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txfAlerta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         lblCategoria12.setText("$");
 
@@ -127,17 +167,17 @@ public class FrmEditarProducto extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txfExistencia2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txfExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCategoria11))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txfIva2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txfIva, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCategoria10))
                     .addComponent(txfPrecDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfPrecMayoreo2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfMinMayoreo2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfAlerta2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfPrecMayoreo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfMinMayoreo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 52, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -155,26 +195,26 @@ public class FrmEditarProducto extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria4)
-                    .addComponent(txfPrecMayoreo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfPrecMayoreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCategoria13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria5)
                     .addComponent(lblCategoria10)
-                    .addComponent(txfIva2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfIva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria6)
-                    .addComponent(txfMinMayoreo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfMinMayoreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria7)
                     .addComponent(lblCategoria11)
-                    .addComponent(txfExistencia2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria8)
-                    .addComponent(txfAlerta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria9)
@@ -248,7 +288,12 @@ public class FrmEditarProducto extends javax.swing.JDialog {
 
         jLabel2.setText("Editar Producto");
 
-        btnGuardar.setText("Guardar");
+        btnGuardar.setText("Guardar Cambios");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -265,8 +310,8 @@ public class FrmEditarProducto extends javax.swing.JDialog {
                         .addGap(266, 266, 266)
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)))
-                .addContainerGap(380, Short.MAX_VALUE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(310, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -309,6 +354,40 @@ public class FrmEditarProducto extends javax.swing.JDialog {
 
     }//GEN-LAST:event_txfDescProductoKeyPressed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        if(txfCodProducto.getText().trim()!=codInicial){
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+                    JOptionPane.showConfirmDialog (null, "Se ha modificado el código del producto ¿Está usted seguro que desea editarlo?","WARNING", 
+                            dialogButton);
+                    
+                    if(dialogButton == JOptionPane.YES_OPTION) {
+                        //System.exit(0);
+                        editarProducto();
+                        
+                        if(dialogButton == JOptionPane.NO_OPTION) {
+                            remove(dialogButton);
+                        }
+                    }
+        }else if(Integer.parseInt(txfExistencia.getText().trim())!=existenciaInicial){
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+                    JOptionPane.showConfirmDialog (null, "Se ha modificado la existencia del producto. Esta debería cambiar únicamente por compras y ventas. ¿Está usted seguro que desea editarlo?","WARNING", 
+                            dialogButton);
+                    
+                    if(dialogButton == JOptionPane.YES_OPTION) {
+                        //System.exit(0);
+                        editarProducto();
+                        
+                        if(dialogButton == JOptionPane.NO_OPTION) {
+                            remove(dialogButton);
+                        }
+                    }
+            
+        }else{
+            editarProducto();
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -350,6 +429,24 @@ public class FrmEditarProducto extends javax.swing.JDialog {
             }
         });
     }
+    
+    private void llenarCategorias() {
+        String datos;
+        ResultSet rst = null;
+        rst = prod.obtenerCategorias();
+        
+        
+        try {
+            while (rst.next()){
+                datos = rst.getString(1);
+                cmbCategoria.addItem(datos);
+            }
+           
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -374,14 +471,116 @@ public class FrmEditarProducto extends javax.swing.JDialog {
     private javax.swing.JLabel lblCategoria7;
     private javax.swing.JLabel lblCategoria8;
     private javax.swing.JLabel lblCategoria9;
-    private javax.swing.JFormattedTextField txfAlerta2;
+    private javax.swing.JFormattedTextField txfAlerta;
     private javax.swing.JTextField txfCodProducto;
     private javax.swing.JTextArea txfDescProducto;
-    private javax.swing.JFormattedTextField txfExistencia2;
-    private javax.swing.JFormattedTextField txfIva2;
-    private javax.swing.JFormattedTextField txfMinMayoreo2;
+    private javax.swing.JFormattedTextField txfExistencia;
+    private javax.swing.JFormattedTextField txfIva;
+    private javax.swing.JFormattedTextField txfMinMayoreo;
     private javax.swing.JTextField txfNomProducto;
     private javax.swing.JFormattedTextField txfPrecDetalle;
-    private javax.swing.JFormattedTextField txfPrecMayoreo2;
+    private javax.swing.JFormattedTextField txfPrecMayoreo;
     // End of variables declaration//GEN-END:variables
+
+    private void editarProducto() {
+        String codigo;
+        String nombre;
+        String descripcion;
+        double precioDetalle;
+        double precioMayoreo;
+        double iva;
+        int cantidadMinima;
+        int alerta;
+        int existencia;
+        
+        int codigoExistente=0;
+        String nomExistente=null;
+        int categoriaInt=1;
+        String categoriaS;
+        ResultSet rst = null;
+        ResultSet codigoReg=null;
+        ResultSet nombres=null;
+        //
+        
+        
+        if ("".equals(txfCodProducto.getText().trim())||"".equals(txfNomProducto.getText().trim())
+                ||"".equals(txfPrecDetalle.getText().trim())
+                ||"".equals(txfPrecMayoreo.getText().trim())||"".equals(txfIva.getText().trim())
+                ||"".equals(txfMinMayoreo.getText().trim())||"".equals(txfAlerta.getText().trim())
+                ||txfCodProducto.getText()==null||txfNomProducto.getText()==null
+                ||txfPrecDetalle.getText()==null
+                ||txfPrecMayoreo.getText()==null||txfIva.getText()==null
+                ||txfMinMayoreo.getText()==null||txfAlerta.getText()==null) {
+            JOptionPane.showMessageDialog(null, "Por favor, introduzca todos los datos obligatorios", 
+                    null, JOptionPane.ERROR_MESSAGE);
+            
+           
+            
+        } else {
+            codigo= txfCodProducto.getText().trim();
+            nombre= txfNomProducto.getText().trim();
+            categoriaS = cmbCategoria.getSelectedItem().toString();
+            rst = prod.obtenerIdCategoria(categoriaS);
+            codigoReg=prod.obtenerCodigos(codigo);
+            nombres=prod.mostrarNombres(nombre);
+            int contarNombres=0;
+            int contarCodigos=0;
+            
+            try {
+                while (rst.next()){
+                    categoriaInt =rst.getInt(1);
+                }
+                while (codigoReg.next()){
+                    codigoExistente=codigoReg.getInt(1);
+                    if(codigo!=codInicial&&codigoExistente==1){
+                        contarCodigos+=1;
+                    }
+                    
+                }
+                while (nombres.next()){
+                    nomExistente=nombres.getString(1);
+                    
+                    if(nomExistente!=nomInicial&&nomExistente!=null){
+                        contarNombres+=1;
+                    }
+                }
+                
+                if (contarNombres>0){
+                    if (contarCodigos>0){
+                        nombre= txfNomProducto.getText().trim();
+                        descripcion=txfDescProducto.getText().trim();
+                        precioDetalle=Double.parseDouble(txfPrecDetalle.getText());
+                        precioMayoreo=Double.parseDouble(txfPrecMayoreo.getText());
+                        iva=Double.parseDouble(txfIva.getText());
+                        cantidadMinima=Integer.parseInt(txfMinMayoreo.getText());
+                        alerta=Integer.parseInt(txfAlerta.getText());
+                        existencia=Integer.parseInt(txfExistencia.getText());
+                        
+
+                        prod.modificarProducto(codInicial, codigo, nombre, descripcion, precioDetalle, precioMayoreo, iva, cantidadMinima, existencia, alerta, categoriaInt);
+        
+                        
+                        JOptionPane.showMessageDialog(null, "Producto modificado de forma exitosa");
+                        this.dispose();
+
+                        }else{
+                        JOptionPane.showMessageDialog(null, "Código de Producto Existente. Asigne un código distinto", null, JOptionPane.ERROR_MESSAGE);
+                        txfCodProducto.requestFocus();
+                    }
+                                
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Nombre de Producto Existente. No se puede asignar el mismo nombre a un nuevo producto", null, JOptionPane.ERROR_MESSAGE);
+                    txfNomProducto.requestFocus();
+                }
+            
+
+            
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+            }
+         
+        }
+        
+    }
 }

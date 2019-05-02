@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -33,10 +33,10 @@
                       <EmptySpace min="-2" pref="266" max="-2" attributes="0"/>
                       <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" min="-2" pref="101" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="380" max="32767" attributes="0"/>
+              <EmptySpace pref="310" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
@@ -108,19 +108,19 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="cmbCategoria" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="txfExistencia2" min="-2" pref="98" max="-2" attributes="0"/>
+                          <Component id="txfExistencia" min="-2" pref="98" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblCategoria11" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="txfIva2" min="-2" pref="43" max="-2" attributes="0"/>
+                          <Component id="txfIva" min="-2" pref="43" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblCategoria10" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="txfPrecDetalle" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
-                      <Component id="txfPrecMayoreo2" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
-                      <Component id="txfMinMayoreo2" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
-                      <Component id="txfAlerta2" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                      <Component id="txfPrecMayoreo" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                      <Component id="txfMinMayoreo" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                      <Component id="txfAlerta" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
               </Group>
@@ -143,30 +143,30 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCategoria4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txfPrecMayoreo2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txfPrecMayoreo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblCategoria13" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCategoria5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblCategoria10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txfIva2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txfIva" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCategoria6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txfMinMayoreo2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txfMinMayoreo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCategoria7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblCategoria11" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txfExistencia2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txfExistencia" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCategoria8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txfAlerta2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txfAlerta" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -242,35 +242,35 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txfPrecMayoreo2">
+        <Component class="javax.swing.JFormattedTextField" name="txfPrecMayoreo">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0.00" subtype="-1" type="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txfIva2">
+        <Component class="javax.swing.JFormattedTextField" name="txfIva">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0.00" subtype="-1" type="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txfMinMayoreo2">
+        <Component class="javax.swing.JFormattedTextField" name="txfMinMayoreo">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0.00" subtype="-1" type="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txfExistencia2">
+        <Component class="javax.swing.JFormattedTextField" name="txfExistencia">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0" subtype="-1" type="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txfAlerta2">
+        <Component class="javax.swing.JFormattedTextField" name="txfAlerta">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0" subtype="-1" type="0"/>
@@ -402,8 +402,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Guardar"/>
+        <Property name="text" type="java.lang.String" value="Guardar Cambios"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>

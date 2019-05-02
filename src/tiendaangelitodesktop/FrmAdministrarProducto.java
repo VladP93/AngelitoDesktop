@@ -223,6 +223,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
 
         txfMinMayoreo2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
+        txfExistencia2.setEditable(false);
         txfExistencia2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         txfAlerta2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
@@ -492,7 +493,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
         String codProducto="";
         int prodComprados=0;
         int prodVendidos=0;
-        
+               
         ResultSet idProdEnTabla=null;
         ResultSet prodCompras=null;
         ResultSet prodVentas=null;
@@ -545,6 +546,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     if(dialogButton == JOptionPane.YES_OPTION) {
                         //System.exit(0);
                         JOptionPane.showMessageDialog(this, "El Producto será editado");
+                        editarProducto();
                         
                         if(dialogButton == JOptionPane.NO_OPTION) {
                             remove(dialogButton);
@@ -561,6 +563,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     if(dialogButton == JOptionPane.YES_OPTION) {
                         //System.exit(0);
                         JOptionPane.showMessageDialog(this, "El Producto será editado");
+                        editarProducto();
                         
                         if(dialogButton == JOptionPane.NO_OPTION) {
                             remove(dialogButton);
@@ -569,12 +572,8 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     
                 }else{ 
                     JOptionPane.showMessageDialog(this, "El Producto será editado");
-//                    
-//                    idCategoria = Integer.parseInt(tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0).toString());
-//                    categoria = (String) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 1);
-//            
-//            FrmEditarCategoria ed = new FrmEditarCategoria(new java.awt.Frame(), true, cat, idCategoria, categoria);
-//            ed.setVisible(true);
+                    editarProducto();
+
                 }
                 
             } catch (SQLException e) {
@@ -710,6 +709,44 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField txfPrecMayoreo2;
     // End of variables declaration//GEN-END:variables
 
+    private void editarProducto(){
+        String codProdEd = (String) jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 0);
+        String nomProdEd = (String) jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 1);
+        String descProdEd = (String) jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 9);
+        Double precDetalleEd = Double.parseDouble(jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 2).toString());
+        Double precMayoreoEd = Double.parseDouble(jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 3).toString());
+        //Double ivaEd = (Double) jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 4);
+        Double ivaEd = Double.parseDouble(jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 4).toString());
+        int minMayoreoEd = Integer.parseInt(jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 5).toString()); 
+        int existenciaEd = Integer.parseInt(jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 6).toString());
+        int alertaEd = Integer.parseInt(jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 7).toString());;
+        
+        String nomCategoriaEd=(String)jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 8);
+//        int categoriaEd=0;
+//
+//        ResultSet idCategoriaEdRes = null;
+//        idCategoriaEdRes = prod.obtenerIdCategoria(nomCategoria);
+//                
+//        try {
+//            while (idCategoriaEdRes.next()){
+//                categoriaEd = idCategoriaEdRes.getInt(1);
+//            }
+//        
+//        } catch (SQLException e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+//        }
+        
+        FrmEditarProducto edProd = new FrmEditarProducto(new java.awt.Frame(),true, prod, codProdEd,nomProdEd,descProdEd,precDetalleEd,precMayoreoEd,ivaEd,minMayoreoEd,existenciaEd,alertaEd,nomCategoriaEd);
+        edProd.setVisible(true);
+//                    
+//                    idCategoria = Integer.parseInt(tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0).toString());
+//                    categoria = (String) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 1);
+//            
+//            FrmEditarCategoria ed = new FrmEditarCategoria(new java.awt.Frame(), true, cat, idCategoria, categoria);
+//            ed.setVisible(true);
+        
+    }
+    
     private void llenarTabla() {
         Object datos[] = new Object[10];
         ResultSet rst = null;

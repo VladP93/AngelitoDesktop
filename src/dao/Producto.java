@@ -49,6 +49,19 @@ public class Producto {
                 
     }
     
+        public void modificarProducto(String codigoInicial, String codigo, String nombre, String descripcion, 
+            Double precioDetalle, Double precioMayoreo, Double iva, int cantidadMayoreo, int existencia,
+            int CantidadMinimoAlerta, int Categoria){
+        
+        cnx.UID("UPDATE Producto SET prod_idProducto='"+codigo+"',prod_nombre='"+nombre+"',prod_descripcion"
+                + "='"+descripcion+"',prod_precio="+precioDetalle+",prod_precioMayoreo="+precioMayoreo+","
+                + "prod_iva="+iva+",prod_cantidadMayoreo="+cantidadMayoreo+",prod_cantidad="+existencia+","
+                + "prod_cantidadMinAlerta="+CantidadMinimoAlerta+",prod_idCategoria"+Categoria+" WHERE "
+                        + "prod_idProducto='"+codigoInicial+"'");
+        
+                
+    }
+    
     public void modificarCantidadProducto(String idProducto, int cantidad){
         cnx.UID("UPDATE Producto SET prod_cantidad="+cantidad+" WHERE prod_idProducto="+idProducto+";");
     }
@@ -60,6 +73,10 @@ public class Producto {
     
     public ResultSet obtenerIdCategoria(String categoria){
         return cnx.getValores("SELECT cat_idCategoria FROM Categoria WHERE cat_Categoria='"+categoria+"'");
+    }
+    
+    public ResultSet obtenerCategoriaporId(int categoria){
+        return cnx.getValores("SELECT cat_categoria FROM Categoria WHERE cat_idCategoria='"+categoria+"'");
     }
     
     public ResultSet obtenerCategorias(){
