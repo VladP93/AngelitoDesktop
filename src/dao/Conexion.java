@@ -58,4 +58,27 @@ public class Conexion {
             return rst;
         }
     }
+    
+    public Connection conectar() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        try {
+            cnx = DriverManager.getConnection(url, login, password);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return cnx;
+    }
+
+    public void desconectar() {
+        try {
+            cnx.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+    
 }

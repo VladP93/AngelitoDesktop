@@ -11,15 +11,25 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import dao.Cliente;
 import dao.Producto;
+import dao.Factura;
+import dao.Conexion;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import vladlidar.gui.Txfields;
 
 /**
  *
- * PENDIENTE:   -FALTA VALIDAR OPERACIONES EN LA BASE DE DATOS, DESCONTAR PRODUCTOS FACTURADOS
- *              -AGREGAR EL INICIO DE FORMULARIOS DE AGREGAR PRODUCTOS Y CLIENTES
- *              -GENERAR REPORTES Y HACER COMMIT DE LA FACTURA EN LA BASE DE DATOS
- *              (INSERT EN FACTURA Y DETALLES DE FACTURA).
  * @author vladi
  */
 public class FrmFactura extends javax.swing.JDialog {
@@ -27,6 +37,7 @@ public class FrmFactura extends javax.swing.JDialog {
     DefaultTableModel model; 
     Cliente cli = new Cliente();
     Producto prod = new Producto();
+    Factura fac = new Factura();
     java.awt.Frame parent;
     Txfields vtxf= new Txfields();
     int idCliente=-1;
@@ -42,7 +53,9 @@ public class FrmFactura extends javax.swing.JDialog {
         llenarClientes();
         llenarProductos();
         iniciarDetalles();
+        lblFacturaNo.setText(" "+numFactura());
         validaciones();
+        this.setModal(false);
     }
     
     private void llenarClientes(){
@@ -98,13 +111,14 @@ public class FrmFactura extends javax.swing.JDialog {
     }
     
     private void llenarProductos(){
-        Object datos[] = new Object[5];
+        Object datos[] = new Object[6];
         rst = null;
         rst = prod.productos();
         model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Producto");
         model.addColumn("Descripcion");
+        model.addColumn("Existencia");
         model.addColumn("Precio");
         model.addColumn("Mayoreo");
         try {
@@ -112,8 +126,9 @@ public class FrmFactura extends javax.swing.JDialog {
                 datos[0] = rst.getString(1);
                 datos[1] = rst.getObject(2);
                 datos[2] = rst.getString(3);
-                datos[3] = "$ "+rst.getString(4);
-                datos[4] = "#"+rst.getString(7) + " $"+rst.getString(5);
+                datos[3] = rst.getString(8);
+                datos[4] = "$ "+rst.getString(4);
+                datos[5] = "#"+rst.getString(7) + " $"+rst.getString(5);
                 model.addRow(datos);
             }
             
@@ -128,13 +143,14 @@ public class FrmFactura extends javax.swing.JDialog {
     }
     
     private void filtrarProductos(String filtro){
-        Object datos[] = new Object[5];
+        Object datos[] = new Object[6];
         rst = null;
         rst = prod.productos(filtro);
         model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Producto");
         model.addColumn("Descripcion");
+        model.addColumn("Existencia");
         model.addColumn("Precio");
         model.addColumn("Mayoreo");
         try {
@@ -142,8 +158,9 @@ public class FrmFactura extends javax.swing.JDialog {
                 datos[0] = rst.getString(1);
                 datos[1] = rst.getObject(2);
                 datos[2] = rst.getString(3);
-                datos[3] = "$ "+rst.getString(4);
-                datos[4] = "#"+rst.getString(7) + " $"+rst.getString(5);
+                datos[3] = rst.getString(8);
+                datos[4] = "$ "+rst.getString(4);
+                datos[5] = "#"+rst.getString(7) + " $"+rst.getString(5);
                 model.addRow(datos);
             }
             
@@ -169,32 +186,64 @@ public class FrmFactura extends javax.swing.JDialog {
     }
     
     private void agregarDetalle(String idProducto, int cantidad){
-        Object datos[] = new Object[6];
-        model = (DefaultTableModel) tblDetalles.getModel();
-        rst = null;
-        rst = prod.productosPorCodigo(idProducto);
-        try {
-            while (rst.next()){
-                datos[0] = idProducto;
-                datos[1] = rst.getObject(2);
-                datos[2] = rst.getString(3);
-                datos[3] = cantidad;
-                if(cantidad>=(Integer)rst.getObject(7)){
-                    datos[4] = rst.getObject(5);
-                } else {
-                    datos[4] = rst.getObject(4);
+        boolean duplicado=false;
+        if(tblDetalles.getModel().getRowCount()>0){
+            for(int i=0;i<tblDetalles.getModel().getRowCount();i++){
+                if(tblDetalles.getModel().getValueAt(i, 0).toString().equals(idProducto)){
+                    duplicado=true;
+                    detalleDuplpicado(idProducto, cantidad, i);
                 }
-                datos[5] = (Integer) datos[3] * Double.parseDouble(datos[4].toString());
-                
-                model.addRow(datos);
             }
-            
-            tblDetalles.setModel(model);
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
         }
-        resumen();
+        if((!duplicado) && evaluarExistencias(idProducto, cantidad)){
+            Object datos[] = new Object[6];
+            model = (DefaultTableModel) tblDetalles.getModel();
+            rst = null;
+            rst = prod.productosPorCodigo(idProducto);
+            try {
+                while (rst.next()){
+                    datos[0] = idProducto;
+                    datos[1] = rst.getObject(2);
+                    datos[2] = rst.getString(3);
+                    datos[3] = cantidad;
+                    if(cantidad>=(Integer)rst.getObject(7)){
+                        datos[4] = rst.getObject(5);
+                    } else {
+                        datos[4] = rst.getObject(4);
+                    }
+                    datos[5] = (Integer) datos[3] * Double.parseDouble(datos[4].toString());
+
+                    model.addRow(datos);
+                }
+
+                tblDetalles.setModel(model);
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+            }
+            resumen();
+        }
+    }
+    
+    private void detalleDuplpicado(String idProducto, int cantidad, int row){
+        int suma = (Integer) tblDetalles.getModel().getValueAt(row, 3) + cantidad;
+        eliminarRegistro(row);
+        agregarDetalle(idProducto, suma);
+    }
+    
+    private boolean evaluarExistencias(String idProducto, int cantidad){
+        boolean retorno=false;
+        if(tblProductos.getModel().getRowCount()>0){
+            for(int i=0;i<tblProductos.getModel().getRowCount();i++){
+                if(tblProductos.getModel().getValueAt(i,0).toString().equals(idProducto)){
+                    if(cantidad<=Integer.parseInt(tblProductos.getModel().getValueAt(i, 3).toString())){
+                        retorno = true;
+                    }
+                }
+            }
+        }
+        if(!retorno)JOptionPane.showMessageDialog(null, "Existencias insuficientes");
+        return retorno;
     }
     
     private void resumen(){
@@ -246,8 +295,18 @@ public class FrmFactura extends javax.swing.JDialog {
         lblCantidadProd = new javax.swing.JLabel();
         lblT = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
+        lblFN = new javax.swing.JLabel();
+        lblFacturaNo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModalExclusionType(null);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         pnlCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
@@ -319,6 +378,11 @@ public class FrmFactura extends javax.swing.JDialog {
         txfProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txfProductoActionPerformed(evt);
+            }
+        });
+        txfProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txfProductoKeyReleased(evt);
             }
         });
 
@@ -427,15 +491,23 @@ public class FrmFactura extends javax.swing.JDialog {
 
         lblTotal.setText("$0.00");
 
+        lblFN.setText("Factura N°:");
+
+        lblFacturaNo.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblFN)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblFacturaNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCP)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCantidadProd, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblCantidadProd, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -447,7 +519,9 @@ public class FrmFactura extends javax.swing.JDialog {
                 .addComponent(lblCP)
                 .addComponent(lblCantidadProd)
                 .addComponent(lblT)
-                .addComponent(lblTotal))
+                .addComponent(lblTotal)
+                .addComponent(lblFN)
+                .addComponent(lblFacturaNo))
         );
 
         javax.swing.GroupLayout pnlDetalleLayout = new javax.swing.GroupLayout(pnlDetalle);
@@ -530,7 +604,8 @@ public class FrmFactura extends javax.swing.JDialog {
     }//GEN-LAST:event_txfClienteKeyReleased
 
     private void btnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarClienteActionPerformed
-        //Agregar formulario para agregar clientes
+        FrmPersonas frame = new FrmPersonas(this.parent,true);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnRegistrarClienteActionPerformed
 
     private void txfProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfProductoActionPerformed
@@ -543,6 +618,7 @@ public class FrmFactura extends javax.swing.JDialog {
         if(Integer.parseInt(txfCantidad.getText())>0){
             agregarDetalle(seleccionarProducto(),Integer.parseInt(txfCantidad.getText()));
         }
+        txfCantidad.setText("0");
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void txfCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfCantidadActionPerformed
@@ -552,7 +628,13 @@ public class FrmFactura extends javax.swing.JDialog {
     }//GEN-LAST:event_txfCantidadActionPerformed
 
     private void btnNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProductoActionPerformed
-        // agregar formulario de productos
+        if(Variables.tipoUsuario==1){
+            FrmAdministrarProducto frame = new FrmAdministrarProducto(this.parent,true);
+            frame.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario no autorizado");
+        }
+        
     }//GEN-LAST:event_btnNuevoProductoActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
@@ -561,16 +643,101 @@ public class FrmFactura extends javax.swing.JDialog {
         if(selectedRow==-1){
             JOptionPane.showMessageDialog(null, "Seleccione el registro que desea quitar de la factura");
         }else{
-            ((DefaultTableModel)tblDetalles.getModel()).removeRow(selectedRow);
+            eliminarRegistro(selectedRow);
             resumen();
         }
         
     }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
-        // Generar Reporte
+        int idFactura = numFactura();
+        int idPersona = idCliente;
+        int idUsuario = Variables.idUsuario;
+        String idProducto="";
+        int cantidad=0;
+        
+        if(idCliente!=-1){
+            if(tblDetalles.getModel().getRowCount()<0){
+                JOptionPane.showMessageDialog(null, "No hay elemntos a facturar");
+            }else{
+                for(int i=0;i<tblDetalles.getModel().getRowCount();i++){
+                    try {
+                        idProducto = tblDetalles.getModel().getValueAt(i, 0).toString();
+                        cantidad = Integer.parseInt(tblDetalles.getModel().getValueAt(i, 3).toString());
+                        rst = null;
+                        rst = fac.facturar(idFactura, idPersona, idUsuario, idProducto, cantidad);
+                        rst.next();
+                        JOptionPane.showMessageDialog(null, rst.getString(1));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(FrmFactura.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un cliente");
+        }
+        actualizar();
+        generarReporte(idFactura);
     }//GEN-LAST:event_btnFacturarActionPerformed
 
+    private void txfProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfProductoKeyReleased
+        filtrarProductos(txfProducto.getText());
+    }//GEN-LAST:event_txfProductoKeyReleased
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        //this.setModal(true);
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void generarReporte(int idFactura){
+        Conexion con = new Conexion();
+        Connection conn;
+        try{
+            conn = con.conectar();
+            
+            JasperReport reporte = null;
+            
+            reporte = (JasperReport) JRLoader.loadObject(this.getClass().getResource("../recursos/reportes/Factura.jasper"));
+            Map params = new HashMap();
+            params.put("idFactura",idFactura);
+            JasperPrint jprint=JasperFillManager.fillReport(reporte, params, conn);
+            this.setModal(false);
+            JasperViewer view = new JasperViewer(jprint,false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+            
+        } catch (JRException e){
+            JOptionPane.showMessageDialog(null, e.getMessage() +" ; "+e.getMessageKey());
+            e.printStackTrace();
+        } finally{
+            con.desconectar();
+        }
+    }
+    
+    private void actualizar(){
+        txfCantidad.setText("0");
+        txfCliente.setText("");
+        txfProducto.setText("");
+        llenarClientes();
+        llenarProductos();
+        iniciarDetalles();
+        lblFacturaNo.setText(" "+numFactura());
+    }
+    
+    private int numFactura(){
+        int noF=0;
+        try{
+            rst = null;
+            rst = fac.ultimaFactura();
+            while(rst.next()){
+                noF=rst.getInt(1);
+            }
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        noF+=1;
+        return noF;
+    }
+    
     private void seleccionarCliente(){
         int selectedRow=-1;
         String nombreCliente="";
@@ -582,7 +749,7 @@ public class FrmFactura extends javax.swing.JDialog {
             idCliente = Integer.parseInt(tblClientes.getModel().getValueAt(0, 0).toString());
         }else{
             nombreCliente = tblClientes.getModel().getValueAt(selectedRow,2).toString();
-            idCliente = (Integer) tblClientes.getModel().getValueAt(selectedRow, 0);
+            idCliente = Integer.parseInt(tblClientes.getModel().getValueAt(selectedRow, 0).toString());
         }
         
         lblClienteSeleccionado.setText(nombreCliente);
@@ -600,6 +767,11 @@ public class FrmFactura extends javax.swing.JDialog {
             return tblProductos.getModel().getValueAt(selectedRow, 0).toString();
         }
     }
+    
+    private void eliminarRegistro(int row){
+        ((DefaultTableModel)tblDetalles.getModel()).removeRow(row);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -654,6 +826,8 @@ public class FrmFactura extends javax.swing.JDialog {
     private javax.swing.JLabel lblCantidadProd;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblClienteSeleccionado;
+    private javax.swing.JLabel lblFN;
+    private javax.swing.JLabel lblFacturaNo;
     private javax.swing.JLabel lblT;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JPanel pnlCliente;

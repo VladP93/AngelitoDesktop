@@ -17,4 +17,5 @@ public class Variables {
  * 2 : Vendedor
  */
     public static int tipoUsuario=0;
+    public static int idUsuario=0;
 }
