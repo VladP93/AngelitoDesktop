@@ -1,4 +1,4 @@
-﻿--SCRIPT BASE DE DATOS TIENDA ANGELITO--;
+--SCRIPT BASE DE DATOS TIENDA ANGELITO--;
 CREATE DATABASE tiendaAngelito;
 USE tiendaAngelito;
 
@@ -184,3 +184,19 @@ BEGIN
     END IF;
 END//
 DELIMITER ;
+
+--Consultas--;
+SELECT cli.per_nombre, cli.per_apellido, prod_idProducto, prod_nombre, prod_descripcion, dfa_cantidad,
+    IF (dfa_cantidad >= prod_cantidadMayoreo,prod_precioMayoreo,prod_precio) AS 'precio_unitario',
+    IF (dfa_cantidad >= prod_cantidadMayoreo,prod_precioMayoreo * dfa_cantidad,prod_precio * dfa_cantidad) AS 'subtotal',
+    b.total, emp.per_nombre, emp.per_apellido
+FROM detallefactura
+INNER JOIN producto ON producto.prod_idProducto=dfa_idProducto
+INNER JOIN factura ON detallefactura.dfa_idFactura=factura.fac_idFactura
+INNER JOIN persona cli ON factura.fac_idPersona = cli.per_idPersona
+INNER JOIN usuario ON factura.fac_idUsuario = usuario.usu_idUsuario
+INNER JOIN empleado ON usuario.usu_idPersona = empleado.emp_idPersona
+INNER JOIN persona emp ON empleado.emp_idPersona= emp.per_idPersona
+CROSS JOIN (SELECT SUM(IF (dfa_cantidad >= prod_cantidadMayoreo,prod_precioMayoreo * dfa_cantidad,prod_precio * dfa_cantidad)) AS 'total' FROM detallefactura
+INNER JOIN producto ON producto.prod_idProducto=dfa_idProducto
+INNER JOIN factura ON detallefactura.dfa_idFactura=factura.fac_idFactura WHERE dfa_idFactura=0) b WHERE dfa_idFactura=0;
