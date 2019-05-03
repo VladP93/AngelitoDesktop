@@ -16,6 +16,8 @@ public class TiendaAngelitoDesktop {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        FrmPrincipal frame = new FrmPrincipal();
+        frame.setVisible(true);
     }
     
 }
