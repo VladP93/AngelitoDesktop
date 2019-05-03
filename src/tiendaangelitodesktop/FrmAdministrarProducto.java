@@ -571,7 +571,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     }                    
                     
                 }else{ 
-                    JOptionPane.showMessageDialog(this, "El Producto será editado");
+ 
                     editarProducto();
 
                 }
@@ -595,17 +595,73 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
-        JOptionPane.showMessageDialog(this, "Opción en Desarrollo");
-//        String idProducto;
-//
-//        if(jtblProductos.getSelectedRow()!=-1){
-//            idProducto = String.valueOf(model.getValueAt(jtblProductos.getSelectedRow()),0);
-//            String dato=String.valueOf(tm.getValueAt(tabla1.getSelectedRow(),0));
-//            
-//            cat.eliminarCategoria(idCategoria);
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Seleccione el registro que desea eliminar");
-//        }
+        
+        String idProducto;
+        String nomProducto;
+        int totalProdConVentas=0;
+        int totalProdConCompras=0;
+        idProducto = (String) jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 0);
+        nomProducto = (String) jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 1);
+
+        JOptionPane.showMessageDialog(this, "idProducto: "+idProducto+"nomProducto: "+nomProducto);
+        if(jtblProductos.getSelectedRow()!=-1){
+            
+            
+            ResultSet prodConVentas = null;
+            ResultSet prodConCompras = null;
+            
+            prodConVentas = prod.contarProductosConVentas(idProducto);
+            prodConCompras = prod.contarProductosConCompras(idProducto);
+            
+            try {
+                while (prodConVentas.next()){
+                    totalProdConVentas=prodConVentas.getInt(1);
+                }
+                while (prodConCompras.next()){
+                    totalProdConCompras=prodConCompras.getInt(1);
+                }
+                
+                if (totalProdConVentas>0 && totalProdConCompras >0){
+                    JOptionPane.showMessageDialog(null, "Este producto tiene compras y ventas asociadas a él, y no puede ser eliminado.", null, JOptionPane.ERROR_MESSAGE);
+                }else if(totalProdConVentas>0){
+                    JOptionPane.showMessageDialog(null, "Este producto tiene ventas asociadas a él, y no puede ser eliminado.", null, JOptionPane.ERROR_MESSAGE);
+                    
+                }else if(totalProdConCompras>0){
+                    JOptionPane.showMessageDialog(null, "Este producto tiene compras asociadas a él, y no puede ser eliminado.", null, JOptionPane.ERROR_MESSAGE);
+                
+                }else{
+                    
+                    int dialogButton = JOptionPane.YES_NO_OPTION;
+                    JOptionPane.showConfirmDialog (null, "El producto '"+nomProducto+"' con código '"+idProducto+"' Será Eliminado. ¿Está usted seguro que desea eliminarlo? ","WARNING", 
+                            dialogButton);
+                    
+                    if(dialogButton == JOptionPane.YES_OPTION) {
+
+                        prod.eliminarProducto(idProducto);
+                        JOptionPane.showMessageDialog(this, "El Producto '"+nomProducto+"' ha sido eliminado con éxito");
+                        llenarTabla();
+                        
+                        if(dialogButton == JOptionPane.NO_OPTION) {
+                            remove(dialogButton);
+                        }
+                    }
+                    
+                }
+                
+    
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+               
+            }
+            
+            
+            
+            
+            
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione el registro que desea eliminar");
+        }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -722,28 +778,13 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
         int alertaEd = Integer.parseInt(jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 7).toString());;
         
         String nomCategoriaEd=(String)jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 8);
-//        int categoriaEd=0;
-//
-//        ResultSet idCategoriaEdRes = null;
-//        idCategoriaEdRes = prod.obtenerIdCategoria(nomCategoria);
-//                
-//        try {
-//            while (idCategoriaEdRes.next()){
-//                categoriaEd = idCategoriaEdRes.getInt(1);
-//            }
-//        
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
-//        }
+
         
         FrmEditarProducto edProd = new FrmEditarProducto(new java.awt.Frame(),true, prod, codProdEd,nomProdEd,descProdEd,precDetalleEd,precMayoreoEd,ivaEd,minMayoreoEd,existenciaEd,alertaEd,nomCategoriaEd);
         edProd.setVisible(true);
-//                    
-//                    idCategoria = Integer.parseInt(tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0).toString());
-//                    categoria = (String) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 1);
-//            
-//            FrmEditarCategoria ed = new FrmEditarCategoria(new java.awt.Frame(), true, cat, idCategoria, categoria);
-//            ed.setVisible(true);
+        llenarTabla();
+        txfCodProducto.requestFocus();
+
         
     }
     
