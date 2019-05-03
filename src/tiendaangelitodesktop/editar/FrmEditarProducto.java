@@ -23,6 +23,28 @@ public class FrmEditarProducto extends javax.swing.JDialog {
     String codInicial;
     String nomInicial;
     int existenciaInicial;
+    
+    String codigo;
+    String nombre;
+    String descripcion;
+    double precioDetalle;
+    double precioMayoreo;
+    double iva;
+    int cantidadMinima;
+    int alerta;
+    int existencia;
+        
+    int codigoExistente=0;
+    String nomExistente=null;
+        
+    int categoriaInt=1;
+    String categoriaS;
+        
+    ResultSet rst = null;
+    ResultSet codigoReg=null;
+    ResultSet nombres=null;
+    
+    
 
     /**
      * Creates new form FrmEditarProducto
@@ -45,6 +67,8 @@ public class FrmEditarProducto extends javax.swing.JDialog {
         nomInicial=nomProdEd;
         existenciaInicial=existenciaEd;
         
+        
+        
         txfCodProducto.setText(codProdEd);
         txfNomProducto.setText(nomProdEd);
         txfDescProducto.setText(descProdEd);
@@ -55,6 +79,11 @@ public class FrmEditarProducto extends javax.swing.JDialog {
         txfExistencia.setText(String.valueOf(existenciaEd));
         txfAlerta.setText(String.valueOf(alertaEd));
         cmbCategoria.setSelectedItem(nomCategoriaEd);
+        
+        codigo=txfCodProducto.getText().trim();
+        nombre=txfNomProducto.getText().trim();
+    
+
         
         
         this.prod = prod;
@@ -283,7 +312,7 @@ public class FrmEditarProducto extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCategoria2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Editar Producto");
@@ -324,11 +353,11 @@ public class FrmEditarProducto extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
-                .addContainerGap())
+                .addGap(20, 20, 20))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(41, 41, 41)
@@ -356,7 +385,12 @@ public class FrmEditarProducto extends javax.swing.JDialog {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if(txfCodProducto.getText().trim()!=codInicial){
+        
+        codigo=txfCodProducto.getText().trim();
+        nombre=txfNomProducto.getText().trim();
+        
+        if(!codigo.equals(codInicial)){
+            
             int dialogButton = JOptionPane.YES_NO_OPTION;
                     JOptionPane.showConfirmDialog (null, "Se ha modificado el código del producto ¿Está usted seguro que desea editarlo?","WARNING", 
                             dialogButton);
@@ -447,6 +481,24 @@ public class FrmEditarProducto extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private void hacerCambios(){
+        descripcion=txfDescProducto.getText().trim();
+                        precioDetalle=Double.parseDouble(txfPrecDetalle.getText());
+                        precioMayoreo=Double.parseDouble(txfPrecMayoreo.getText());
+                        iva=Double.parseDouble(txfIva.getText());
+                        cantidadMinima=Integer.parseInt(txfMinMayoreo.getText());
+                        alerta=Integer.parseInt(txfAlerta.getText());
+                        existencia=Integer.parseInt(txfExistencia.getText());
+                        
+
+                        prod.modificarProducto(codInicial, codigo, nombre, descripcion, precioDetalle, precioMayoreo, iva, cantidadMinima, existencia, alerta, categoriaInt);
+        
+                        
+                        JOptionPane.showMessageDialog(null, "Producto modificado de forma exitosa");
+                        this.dispose();
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -482,27 +534,9 @@ public class FrmEditarProducto extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField txfPrecMayoreo;
     // End of variables declaration//GEN-END:variables
 
+
     private void editarProducto() {
-        String codigo;
-        String nombre;
-        String descripcion;
-        double precioDetalle;
-        double precioMayoreo;
-        double iva;
-        int cantidadMinima;
-        int alerta;
-        int existencia;
-        
-        int codigoExistente=0;
-        String nomExistente=null;
-        int categoriaInt=1;
-        String categoriaS;
-        ResultSet rst = null;
-        ResultSet codigoReg=null;
-        ResultSet nombres=null;
-        //
-        
-        
+    
         if ("".equals(txfCodProducto.getText().trim())||"".equals(txfNomProducto.getText().trim())
                 ||"".equals(txfPrecDetalle.getText().trim())
                 ||"".equals(txfPrecMayoreo.getText().trim())||"".equals(txfIva.getText().trim())
@@ -513,9 +547,7 @@ public class FrmEditarProducto extends javax.swing.JDialog {
                 ||txfMinMayoreo.getText()==null||txfAlerta.getText()==null) {
             JOptionPane.showMessageDialog(null, "Por favor, introduzca todos los datos obligatorios", 
                     null, JOptionPane.ERROR_MESSAGE);
-            
            
-            
         } else {
             codigo= txfCodProducto.getText().trim();
             nombre= txfNomProducto.getText().trim();
@@ -524,54 +556,64 @@ public class FrmEditarProducto extends javax.swing.JDialog {
             codigoReg=prod.obtenerCodigos(codigo);
             nombres=prod.mostrarNombres(nombre);
             int contarNombres=0;
-            int contarCodigos=0;
+            int codEnBase=0;
+
             
             try {
                 while (rst.next()){
                     categoriaInt =rst.getInt(1);
                 }
+                
                 while (codigoReg.next()){
-                    codigoExistente=codigoReg.getInt(1);
-                    if(codigo!=codInicial&&codigoExistente==1){
-                        contarCodigos+=1;
-                    }
-                    
+                    codEnBase=codigoReg.getInt(1);
                 }
+
+
                 while (nombres.next()){
                     nomExistente=nombres.getString(1);
                     
-                    if(nomExistente!=nomInicial&&nomExistente!=null){
-                        contarNombres+=1;
+                    if(nomExistente!=null){
+                        contarNombres=1;
                     }
                 }
                 
-                if (contarNombres>0){
-                    if (contarCodigos>0){
-                        nombre= txfNomProducto.getText().trim();
-                        descripcion=txfDescProducto.getText().trim();
-                        precioDetalle=Double.parseDouble(txfPrecDetalle.getText());
-                        precioMayoreo=Double.parseDouble(txfPrecMayoreo.getText());
-                        iva=Double.parseDouble(txfIva.getText());
-                        cantidadMinima=Integer.parseInt(txfMinMayoreo.getText());
-                        alerta=Integer.parseInt(txfAlerta.getText());
-                        existencia=Integer.parseInt(txfExistencia.getText());
+                if (codInicial.equals(codigo) && nomInicial.equals(nombre)){
+                    hacerCambios();
                         
-
-                        prod.modificarProducto(codInicial, codigo, nombre, descripcion, precioDetalle, precioMayoreo, iva, cantidadMinima, existencia, alerta, categoriaInt);
-        
                         
-                        JOptionPane.showMessageDialog(null, "Producto modificado de forma exitosa");
-                        this.dispose();
+                }else if (codInicial.equals(codigo) && !nomInicial.equals(nombre)) {
+                    if (contarNombres==1){
+                        JOptionPane.showMessageDialog(null, "Nombre de Producto Existente. No se puede asignar el mismo nombre a un nuevo producto", null, JOptionPane.ERROR_MESSAGE);
+                        txfNomProducto.requestFocus();
+                        
+                    }else{
+                        hacerCambios();
+                    }
 
-                        }else{
+                }else if (!codInicial.equals(codigo) && nomInicial.equals(nombre)) {
+                    if(codEnBase==1){
                         JOptionPane.showMessageDialog(null, "Código de Producto Existente. Asigne un código distinto", null, JOptionPane.ERROR_MESSAGE);
                         txfCodProducto.requestFocus();
+                    }else{
+                        hacerCambios();
                     }
-                                
                     
-                }else{
-                    JOptionPane.showMessageDialog(null, "Nombre de Producto Existente. No se puede asignar el mismo nombre a un nuevo producto", null, JOptionPane.ERROR_MESSAGE);
-                    txfNomProducto.requestFocus();
+                    
+                
+                }else if (!codInicial.equals(codigo) && !nomInicial.equals(nombre)) {
+                    if (contarNombres==1){
+                        JOptionPane.showMessageDialog(null, "Nombre de Producto Existente. No se puede asignar el mismo nombre a un nuevo producto", null, JOptionPane.ERROR_MESSAGE);
+                        txfNomProducto.requestFocus();
+                        
+                    }else if(codEnBase==1){
+                        JOptionPane.showMessageDialog(null, "Código de Producto Existente. Asigne un código distinto", null, JOptionPane.ERROR_MESSAGE);
+                        txfCodProducto.requestFocus();
+                    }else{
+                        hacerCambios();
+                    }
+                    
+                    
+                    
                 }
             
 
