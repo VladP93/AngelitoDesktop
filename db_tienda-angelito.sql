@@ -179,7 +179,7 @@ BEGIN
                 THEN
                     INSERT INTO compra VALUES (NULL, in_idUsuario, in_idProv, NOW());
             END IF;
-            INSERT INTO detalleFactura VALUES (in_idLote, in_idCompra);
+            INSERT INTO detalleCompra VALUES (in_idLote, in_idCompra);
             UPDATE producto SET prod_cantidad = (cantidad + in_contenido) WHERE prod_idProducto = in_idProducto;
     END IF;
 END//
