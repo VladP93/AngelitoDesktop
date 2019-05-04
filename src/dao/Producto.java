@@ -56,7 +56,7 @@ public class Producto {
         cnx.UID("UPDATE Producto SET prod_idProducto='"+codigo+"',prod_nombre='"+nombre+"',prod_descripcion"
                 + "='"+descripcion+"',prod_precio="+precioDetalle+",prod_precioMayoreo="+precioMayoreo+","
                 + "prod_iva="+iva+",prod_cantidadMayoreo="+cantidadMayoreo+",prod_cantidad="+existencia+","
-                + "prod_cantidadMinAlerta="+CantidadMinimoAlerta+",prod_idCategoria"+Categoria+" WHERE "
+                + "prod_cantidadMinAlerta="+CantidadMinimoAlerta+",prod_idCategoria="+Categoria+" WHERE "
                         + "prod_idProducto='"+codigoInicial+"'");
         
                 
@@ -67,7 +67,7 @@ public class Producto {
     }
     
     public void eliminarProducto(String idProducto) {
-        cnx.UID("DELETE FROM Producto WHERE prod_idProducto="+idProducto);
+        cnx.UID("DELETE FROM Producto WHERE prod_idProducto='"+idProducto+"'");
     }
     
     
