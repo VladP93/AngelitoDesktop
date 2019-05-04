@@ -222,7 +222,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
 
         txfIva2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
-        txfMinMayoreo2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txfMinMayoreo2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         txfExistencia2.setEditable(false);
         txfExistencia2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
@@ -542,7 +542,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     
                     if(dialogButton == JOptionPane.YES_OPTION) {
                         //System.exit(0);
-                        JOptionPane.showMessageDialog(this, "El Producto será editado");
+                        //JOptionPane.showMessageDialog(this, "El Producto será editado");
                         
                         if(dialogButton == JOptionPane.NO_OPTION) {
                             remove(dialogButton);
@@ -557,7 +557,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     
                     if(dialogButton == JOptionPane.YES_OPTION) {
                         //System.exit(0);
-                        JOptionPane.showMessageDialog(this, "El Producto será editado");
+                        //JOptionPane.showMessageDialog(this, "El Producto será editado");
                         editarProducto();
                         
                         if(dialogButton == JOptionPane.NO_OPTION) {
@@ -574,7 +574,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     
                     if(dialogButton == JOptionPane.YES_OPTION) {
                         //System.exit(0);
-                        JOptionPane.showMessageDialog(this, "El Producto será editado");
+                        //JOptionPane.showMessageDialog(this, "El Producto será editado");
                         editarProducto();
                         
                         if(dialogButton == JOptionPane.NO_OPTION) {
