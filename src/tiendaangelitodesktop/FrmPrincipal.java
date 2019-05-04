@@ -14,7 +14,7 @@ import javax.swing.JTextField;
  * @author vladi
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-    FrmLogin login;
+    //FrmLogin login;
     int width = Toolkit.getDefaultToolkit().getScreenSize().width;
     int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 
@@ -249,8 +249,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         redimensionarBtn();
         reposicionarBtn();
         desactivarPanel();
-        login = new FrmLogin(this,true);
-        login.setVisible(true);
+        Variables.login = new FrmLogin(this,true);
+        Variables.login.setVisible(true);
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -284,7 +284,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         desactivarPanel();
         Variables.idUsuario=0;
         Variables.tipoUsuario=0;
-        FrmLogin log=new FrmLogin(null,true);
+        Variables.login.setVisible(true);
     }//GEN-LAST:event_btnDesconectarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed

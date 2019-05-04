@@ -6,6 +6,7 @@
 package tiendaangelitodesktop;
 
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,9 +44,9 @@ public class FrmLogin extends javax.swing.JDialog {
         lblUsuario = new javax.swing.JLabel();
         txfUsuario = new javax.swing.JTextField();
         lblPass = new javax.swing.JLabel();
-        txfPass = new javax.swing.JTextField();
         lblForgPass = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
+        txfPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -93,9 +94,9 @@ public class FrmLogin extends javax.swing.JDialog {
                             .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                            .addComponent(txfPass))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -138,8 +139,23 @@ public class FrmLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        Variables.tipoUsuario=1;
-        this.dispose();
+        String usuario = txfUsuario.getText();
+        String password="";
+        
+        for(int i=0;i<txfPass.getPassword().length;i++){
+            password+=txfPass.getPassword()[i];
+        }
+        
+        if(usuario.equals("usu") && password.equals("1234")){
+            Variables.tipoUsuario=2;
+            this.setVisible(false);
+        }
+        else if(usuario.equals("adm") && password.equals("1234")){
+            Variables.tipoUsuario=1;
+            this.setVisible(false);
+        } else{
+            JOptionPane.showMessageDialog(this,"Usuario o contraseña incorrecto");
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
@@ -191,7 +207,7 @@ public class FrmLogin extends javax.swing.JDialog {
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPanel pnlLogIn;
-    private javax.swing.JTextField txfPass;
+    private javax.swing.JPasswordField txfPass;
     private javax.swing.JTextField txfUsuario;
     // End of variables declaration//GEN-END:variables
 }

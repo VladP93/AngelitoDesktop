@@ -67,9 +67,9 @@
                               <Component id="lblPass" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txfUsuario" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="txfPass" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txfUsuario" pref="180" max="32767" attributes="0"/>
+                              <Component id="txfPass" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -121,8 +121,6 @@
             <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txfPass">
-        </Component>
         <Component class="javax.swing.JLabel" name="lblForgPass">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
@@ -136,6 +134,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIngresarActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="txfPass">
         </Component>
       </SubComponents>
     </Container>

@@ -543,6 +543,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     if(dialogButton == JOptionPane.YES_OPTION) {
                         //System.exit(0);
                         //JOptionPane.showMessageDialog(this, "El Producto será editado");
+                        editarProducto();
                         
                         if(dialogButton == JOptionPane.NO_OPTION) {
                             remove(dialogButton);

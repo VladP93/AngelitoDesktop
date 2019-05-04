@@ -18,4 +18,5 @@ public class Variables {
  */
     public static int tipoUsuario=0;
     public static int idUsuario=0;
+    public static FrmLogin login;
 }
