@@ -18,5 +18,6 @@ public class Variables {
  */
     public static int tipoUsuario=0;
     public static int idUsuario=0;
+    public static String nombreUsuario="NULL";
     public static FrmLogin login;
 }

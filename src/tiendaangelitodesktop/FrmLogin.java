@@ -5,7 +5,11 @@
  */
 package tiendaangelitodesktop;
 
+import dao.Usuario;
+import java.awt.Color;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class FrmLogin extends javax.swing.JDialog {
     private int width, height;
+    private ResultSet rst;
+    private Usuario usu = new Usuario();
 
     /**
      * Creates new form FrmLogin
@@ -28,6 +34,12 @@ public class FrmLogin extends javax.swing.JDialog {
         x = (x/2)-(this.getSize().width/2);
         y = (y/2)-(this.getSize().height/2);
         this.setLocation(x, y);
+    }
+    
+    public void limpiar(){
+        txfUsuario.setText("");
+        txfPass.setText("");
+        txfUsuario.requestFocus();
     }
 
     /**
@@ -67,15 +79,39 @@ public class FrmLogin extends javax.swing.JDialog {
 
         lblUsuario.setText("Usuario:");
 
+        txfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfUsuarioActionPerformed(evt);
+            }
+        });
+
         lblPass.setText("Contraseña:");
 
         lblForgPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblForgPass.setText("Olvidé mi contraseña");
+        lblForgPass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblForgPass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblForgPassMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblForgPassMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblForgPassMouseReleased(evt);
+            }
+        });
 
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
+            }
+        });
+
+        txfPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfPassActionPerformed(evt);
             }
         });
 
@@ -139,25 +175,121 @@ public class FrmLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        loggearse();
+    }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void txfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfUsuarioActionPerformed
+        loggearse();
+    }//GEN-LAST:event_txfUsuarioActionPerformed
+
+    private void txfPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfPassActionPerformed
+        loggearse();
+    }//GEN-LAST:event_txfPassActionPerformed
+
+    private void lblForgPassMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgPassMouseReleased
+        String alias;
+        String dui="";
+        String nit="";
+        String nombre="";
+        String apellido="";
+        int tipoUsuario=0;
+        int idUsuario=0;
+        
+        alias = JOptionPane.showInputDialog(this, "Ingrese su nombre de usuario");
+        rst = usu.usuarios(alias);
+        
+        try {
+            if (rst.next()){
+                idUsuario = rst.getInt(1);
+                dui = rst.getString(9);
+                nit = rst.getString(10);
+                nombre = rst.getString(13);
+                apellido = rst.getString(14);
+                tipoUsuario = rst.getInt(3);
+                
+                if(tipoUsuario!=1){
+                    JOptionPane.showMessageDialog(this, "Por favor, póngase en contacto con el administrador");
+                } else {
+                    if(JOptionPane.showInputDialog(this, "Ingrese su DUI con guiones (########-#)").equals(dui)){
+                        if(JOptionPane.showInputDialog(this, "Ingrese su NIT con guiones (####-######-###-#)").equals(nit)){
+                            if(JOptionPane.showInputDialog(this, "Ingrese su primer y segundo nombre (ej. Juan José)").equals(nombre)){
+                                if(JOptionPane.showInputDialog(this, "Ingrese su primer y segundo apellido (ej. Hernández Gonzáles)").equals(apellido)){
+                                    nuevoPass(idUsuario);
+                                } else {
+                                    JOptionPane.showMessageDialog(this,"Apellidos incorrectos");
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(this,"Nombre incorrectos");
+                            }
+                        } else{
+                            JOptionPane.showMessageDialog(this,"NIT incorrecto");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this,"DUI incorrecto");
+                    }
+                }
+                
+                
+            } else {
+                JOptionPane.showMessageDialog(this,"El usuario "+alias+" no se encuentra registrado");
+                Variables.idUsuario = 0;
+                Variables.tipoUsuario = 0;
+                Variables.nombreUsuario = "NULL";
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_lblForgPassMouseReleased
+
+    private void lblForgPassMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgPassMouseEntered
+        lblForgPass.setForeground(Color.red);
+    }//GEN-LAST:event_lblForgPassMouseEntered
+
+    private void lblForgPassMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgPassMouseExited
+        lblForgPass.setForeground(Color.black);
+    }//GEN-LAST:event_lblForgPassMouseExited
+
+    private void nuevoPass(int idUsuario){
+        String nuevoPass;
+        do{
+            nuevoPass=JOptionPane.showInputDialog(this, "Ingrese su nueva contraseña");
+        }while(!nuevoPass.equals(JOptionPane.showInputDialog(this, "Repita su nueva contraseña")));
+        
+        usu.cambiarPass(idUsuario, nuevoPass);
+        JOptionPane.showMessageDialog(this, "Contraseña cambiada con éxito");
+    }
+    
+    private void loggearse(){
         String usuario = txfUsuario.getText();
         String password="";
+        
+        rst=null;
         
         for(int i=0;i<txfPass.getPassword().length;i++){
             password+=txfPass.getPassword()[i];
         }
         
-        if(usuario.equals("usu") && password.equals("1234")){
-            Variables.tipoUsuario=2;
-            this.setVisible(false);
+        rst = usu.usuarios(usuario, password);
+        
+        try {
+            if (rst.next()){
+                Variables.idUsuario = rst.getInt(1);
+                Variables.tipoUsuario = rst.getInt(3);
+                Variables.nombreUsuario = rst.getString(13)+" "+rst.getString(14);
+                limpiar();
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this,"Usuario o contraseña incorrectos");
+                Variables.idUsuario = 0;
+                Variables.tipoUsuario = 0;
+                Variables.nombreUsuario = "NULL";
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
         }
-        else if(usuario.equals("adm") && password.equals("1234")){
-            Variables.tipoUsuario=1;
-            this.setVisible(false);
-        } else{
-            JOptionPane.showMessageDialog(this,"Usuario o contraseña incorrecto");
-        }
-    }//GEN-LAST:event_btnIngresarActionPerformed
-
+    }
+    
     /**
      * @param args the command line arguments
      */
