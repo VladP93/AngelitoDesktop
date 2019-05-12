@@ -1,19 +1,19 @@
---SCRIPT BASE DE DATOS TIENDA ANGELITO--;
+-- SCRIPT BASE DE DATOS TIENDA ANGELITO--;
 CREATE DATABASE tiendaAngelito;
 USE tiendaAngelito;
 
---TABLAS--;
+-- TABLAS--;
 CREATE TABLE persona(
     per_idPersona INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    per_dui VARCHAR(10) NULL DEFAULT '00000000-0',
-    per_nit VARCHAR(17) NULL DEFAULT '0000-000000-000-0',
-    per_nup VARCHAR(12) NULL DEFAULT '000000000000',
-    per_isss VARCHAR(9) NULL DEFAULT '000000000',
+    per_dui VARCHAR(10) NULL DEFAULT '00000000-0' UNIQUE,
+    per_nit VARCHAR(17) NULL DEFAULT '0000-000000-000-0' UNIQUE,
+    per_nup VARCHAR(12) NULL DEFAULT '000000000000' UNIQUE,
+    per_isss VARCHAR(9) NULL DEFAULT '000000000' UNIQUE,
     per_nombre VARCHAR(255) NOT NULL,
     per_apellido VARCHAR(255),
-    per_direccion VARCHAR(255) NOT NULL,
-    per_telefono VARCHAR(9) NULL DEFAULT '0000-0000',
-    per_email VARCHAR(100) NULL DEFAULT 'n/a',
+    per_direccion VARCHAR(255) NOT NULL UNIQUE,
+    per_telefono VARCHAR(9) NULL DEFAULT '0000-0000' UNIQUE,
+    per_email VARCHAR(100) NULL DEFAULT 'n/a' UNIQUE,
     per_natural BOOLEAN NULL DEFAULT TRUE
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE usuario(
     usu_idUsuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     usu_idPersona INT NOT NULL,
     usu_idTipoUsuario INT NOT NULL,
-    usu_alias VARCHAR(100) NOT NULL,
+    usu_alias VARCHAR(100) NOT NULL UNIQUE,
     usu_contrasenia VARCHAR(100) NOT NULL,
     FOREIGN KEY (usu_idPersona) REFERENCES empleado (emp_idPersona),
     FOREIGN KEY (usu_idTipoUsuario) REFERENCES tipoUsuario (tus_idTipoUsuario)
@@ -57,7 +57,7 @@ CREATE TABLE factura(
 );
 
 CREATE TABLE compra(
-    com_idCompra INT NOT NULL PRIMARY KEY,
+    com_idCompra INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     com_idUsuario INT NOT NULL,
     com_idPersona INT NULL DEFAULT '0',
     com_fecha DATE NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE compra(
 
 CREATE TABLE categoria(
     cat_idCategoria INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    cat_categoria VARCHAR(100) NOT NULL
+    cat_categoria VARCHAR(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE producto(
@@ -111,29 +111,34 @@ CREATE TABLE detalleCompra(
     FOREIGN KEY (dco_idCompra) REFERENCES compra (com_idCompra)
 );
 
---Valores 0 por defecto--;
+-- Valores iniciales--;
+
+INSERT INTO tipoUsuario(tus_tipoUsuario) VALUES('Administrador');
+INSERT INTO tipoUsuario(tus_tipoUsuario) VALUES('Vendedor');
+
+-- Valores 0 por defecto--;
 
 INSERT INTO persona(per_idPersona,per_nombre,per_direccion) VALUES (0,'Sin registrar','n/a');
+UPDATE persona SET per_idPersona=0;
 INSERT INTO cliente(cli_idPersona) VALUES(0);
 INSERT INTO empleado(emp_idPersona) VALUES(0);
 INSERT INTO proveedor(prov_idPersona) VALUES(0);
-INSERT INTO tipoUsuario(tus_tipoUsuario) VALUES('Administrador');
-INSERT INTO tipoUsuario(tus_tipoUsuario) VALUES('Vendedor');
-INSERT INTO usuario(usu_idUsuario,usu_idPersona,usu_idTipoUsuario,usu_alias,usu_contrasenia) VALUES (0,0,1,'admin','0000');
+INSERT INTO usuario(usu_idUsuario,usu_idPersona,usu_idTipoUsuario,usu_alias,usu_contrasenia) VALUES (-1,0,1,'admin','1234');
+INSERT INTO usuario(usu_idUsuario,usu_idPersona,usu_idTipoUsuario,usu_alias,usu_contrasenia) VALUES (0,0,2,'usu','1234');
+UPDATE usuario SET usu_idUsuario = 0 WHERE usu_idUsuario = 1;
 INSERT INTO factura VALUES(0,0,0,'1900-1-1');
-UPDATE factura SET fac_idFactura = 0 WHERE fac_idFactura = 1;
+UPDATE factura SET fac_idFactura = 0;
 INSERT INTO compra VALUES(0,0,0,'1900-1-1');
-UPDATE compra SET com_idCompra = 0 WHERE com_idCompra = 1;
+UPDATE compra SET com_idCompra = 0;
 INSERT INTO categoria VALUES(0,'Sin categoría');
-UPDATE categoria SET cat_idCategoria = 0 WHERE cat_idCategoria = 1;
+UPDATE categoria SET cat_idCategoria = 0;
 INSERT INTO producto VALUES(0,'Sin producto','n/a',0,0,0,0,0,0,0);
 INSERT INTO detalleFactura(dfa_idDetalleFactura,dfa_idFactura) VALUES(0,0);
 INSERT INTO lote VALUES(0,0,0,'1900-1-1','2999-12-31',0,0);
+UPDATE lote SET lot_idLote = 0;
 INSERT INTO detalleCompra VALUES(0,0);
 
---Valores iniciales--;
-
---Procedimientos almacenados--;
+-- Procedimientos almacenados--;
 DELIMITER //
 CREATE PROCEDURE proc_facturar(IN in_idFactura INT, IN in_idPersona INT, IN in_idUsuario INT, IN in_idProducto VARCHAR(100), IN in_cantidad INT)
 BEGIN
@@ -159,11 +164,11 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE proc_comprar(
-    IN in_idLote INT, IN in_codLote VARCHAR(100), IN in_idProducto VARCHAR(100),
+    IN in_codLote VARCHAR(100), IN in_idProducto VARCHAR(100),
     IN in_fecFab DATE, IN in_fecVen DATE, IN in_contenido INT,
     IN in_precio DECIMAL(8,2), IN in_idCompra INT, IN in_idUsuario INT, IN in_idProv INT)
 BEGIN
-    DECLARE idProducto INT;
+    DECLARE idProducto VARCHAR(100);
     DECLARE cantidad INT;
     DECLARE idCompra INT;
     SET idProducto = (SELECT prod_idProducto FROM producto WHERE prod_idProducto = in_idProducto);
@@ -174,7 +179,7 @@ BEGIN
         THEN
             SELECT "El producto no existe, debe registrarlo";
         ELSE
-            INSERT INTO lote VALUES (in_idLote, in_codLote, in_idProducto, in_fecFab, in_fecVen, in_contenido, in_precio);
+            INSERT INTO lote VALUES (NULL, in_codLote, in_idProducto, in_fecFab, in_fecVen, in_contenido, in_precio);
             IF idCompra IS NULL
                 THEN
                     INSERT INTO compra VALUES (NULL, in_idUsuario, in_idProv, NOW());
@@ -185,7 +190,7 @@ BEGIN
 END//
 DELIMITER ;
 
---Consultas--;
+-- Consultas--;
 SELECT cli.per_nombre, cli.per_apellido, prod_idProducto, prod_nombre, prod_descripcion, dfa_cantidad,
     IF (dfa_cantidad >= prod_cantidadMayoreo,prod_precioMayoreo,prod_precio) AS 'precio_unitario',
     IF (dfa_cantidad >= prod_cantidadMayoreo,prod_precioMayoreo * dfa_cantidad,prod_precio * dfa_cantidad) AS 'subtotal',
