@@ -278,6 +278,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
         // Agregar formulario compras
+        FrmCompras prod= new FrmCompras(this,true);
+        prod.setVisible(true);
     }//GEN-LAST:event_btnComprasActionPerformed
 
     private void btnDesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesconectarActionPerformed

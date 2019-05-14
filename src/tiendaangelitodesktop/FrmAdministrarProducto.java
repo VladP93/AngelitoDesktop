@@ -743,48 +743,8 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cmbCategoria;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtblProductos;
-    private javax.swing.JLabel lblBuscar;
-    private javax.swing.JLabel lblCategoria;
-    private javax.swing.JLabel lblCategoria1;
-    private javax.swing.JLabel lblCategoria10;
-    private javax.swing.JLabel lblCategoria11;
-    private javax.swing.JLabel lblCategoria12;
-    private javax.swing.JLabel lblCategoria13;
-    private javax.swing.JLabel lblCategoria2;
-    private javax.swing.JLabel lblCategoria3;
-    private javax.swing.JLabel lblCategoria4;
-    private javax.swing.JLabel lblCategoria5;
-    private javax.swing.JLabel lblCategoria6;
-    private javax.swing.JLabel lblCategoria7;
-    private javax.swing.JLabel lblCategoria8;
-    private javax.swing.JLabel lblCategoria9;
-    private javax.swing.JPanel pnlCategorias;
-    private javax.swing.JScrollPane tblProductos;
-    private javax.swing.JFormattedTextField txfAlerta2;
-    private javax.swing.JTextField txfBuscar;
-    private javax.swing.JTextField txfCodProducto;
-    private javax.swing.JTextArea txfDescProducto;
-    private javax.swing.JFormattedTextField txfExistencia2;
-    private javax.swing.JFormattedTextField txfIva2;
-    private javax.swing.JFormattedTextField txfMinMayoreo2;
-    private javax.swing.JTextField txfNomProducto;
-    private javax.swing.JFormattedTextField txfPrecDetalle;
-    private javax.swing.JFormattedTextField txfPrecMayoreo2;
-    // End of variables declaration//GEN-END:variables
-
-    private void editarProducto(){
+    
+        private void editarProducto(){
         String codProdEd = (String) jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 0);
         String nomProdEd = (String) jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 1);
         String descProdEd = (String) jtblProductos.getValueAt(jtblProductos.getSelectedRow(), 9);
@@ -904,4 +864,46 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
         }
     }    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cmbCategoria;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jtblProductos;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblCategoria1;
+    private javax.swing.JLabel lblCategoria10;
+    private javax.swing.JLabel lblCategoria11;
+    private javax.swing.JLabel lblCategoria12;
+    private javax.swing.JLabel lblCategoria13;
+    private javax.swing.JLabel lblCategoria2;
+    private javax.swing.JLabel lblCategoria3;
+    private javax.swing.JLabel lblCategoria4;
+    private javax.swing.JLabel lblCategoria5;
+    private javax.swing.JLabel lblCategoria6;
+    private javax.swing.JLabel lblCategoria7;
+    private javax.swing.JLabel lblCategoria8;
+    private javax.swing.JLabel lblCategoria9;
+    private javax.swing.JPanel pnlCategorias;
+    private javax.swing.JScrollPane tblProductos;
+    private javax.swing.JFormattedTextField txfAlerta2;
+    private javax.swing.JTextField txfBuscar;
+    private javax.swing.JTextField txfCodProducto;
+    private javax.swing.JTextArea txfDescProducto;
+    private javax.swing.JFormattedTextField txfExistencia2;
+    private javax.swing.JFormattedTextField txfIva2;
+    private javax.swing.JFormattedTextField txfMinMayoreo2;
+    private javax.swing.JTextField txfNomProducto;
+    private javax.swing.JFormattedTextField txfPrecDetalle;
+    private javax.swing.JFormattedTextField txfPrecMayoreo2;
+    // End of variables declaration//GEN-END:variables
+
+
 }
