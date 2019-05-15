@@ -599,7 +599,15 @@ public class FrmCompras extends javax.swing.JDialog {
     }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        JOptionPane.showConfirmDialog (null, "Se perderán los datos de la presente compra. "
+        + "¿Está usted seguro que desea salir? ","WARNING", dialogButton);
+        
+        if(dialogButton == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }else if(dialogButton == JOptionPane.NO_OPTION) {
+            remove(dialogButton);
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txfCodLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfCodLoteActionPerformed

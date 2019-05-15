@@ -276,6 +276,9 @@ public class FrmFactura extends javax.swing.JDialog {
         btnSeleccionarCliente = new javax.swing.JButton();
         spnlClientes = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
+        lblBuscarCliente = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
+        lblClienteSeleccionado = new javax.swing.JLabel();
         pnlProducto = new javax.swing.JPanel();
         txfProducto = new javax.swing.JTextField();
         btnNuevoProducto = new javax.swing.JButton();
@@ -283,13 +286,12 @@ public class FrmFactura extends javax.swing.JDialog {
         spnlProductos = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
         txfCantidad = new javax.swing.JTextField();
+        lblBuscarProd = new javax.swing.JLabel();
+        lblCantidad = new javax.swing.JLabel();
         pnlDetalle = new javax.swing.JPanel();
-        lblCliente = new javax.swing.JLabel();
-        lblClienteSeleccionado = new javax.swing.JLabel();
         spnlDetalles = new javax.swing.JScrollPane();
         tblDetalles = new javax.swing.JTable();
         btnQuitar = new javax.swing.JButton();
-        btnFacturar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblCP = new javax.swing.JLabel();
         lblCantidadProd = new javax.swing.JLabel();
@@ -297,6 +299,8 @@ public class FrmFactura extends javax.swing.JDialog {
         lblTotal = new javax.swing.JLabel();
         lblFN = new javax.swing.JLabel();
         lblFacturaNo = new javax.swing.JLabel();
+        btnFacturar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModalExclusionType(null);
@@ -321,14 +325,14 @@ public class FrmFactura extends javax.swing.JDialog {
             }
         });
 
-        btnRegistrarCliente.setText("Registrar");
+        btnRegistrarCliente.setText("Registrar nuevo Cliente");
         btnRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarClienteActionPerformed(evt);
             }
         });
 
-        btnSeleccionarCliente.setText("Seleccionar");
+        btnSeleccionarCliente.setText("Seleccionar Cliente");
         btnSeleccionarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarClienteActionPerformed(evt);
@@ -345,6 +349,12 @@ public class FrmFactura extends javax.swing.JDialog {
         ));
         spnlClientes.setViewportView(tblClientes);
 
+        lblBuscarCliente.setText("Buscar Cliente:");
+
+        lblCliente.setText("Cliente Seleccionado para esta factura:");
+
+        lblClienteSeleccionado.setText("Seleccione cliente");
+
         javax.swing.GroupLayout pnlClienteLayout = new javax.swing.GroupLayout(pnlCliente);
         pnlCliente.setLayout(pnlClienteLayout);
         pnlClienteLayout.setHorizontalGroup(
@@ -352,13 +362,19 @@ public class FrmFactura extends javax.swing.JDialog {
             .addGroup(pnlClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spnlClientes)
+                    .addComponent(spnlClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
                     .addGroup(pnlClienteLayout.createSequentialGroup()
-                        .addComponent(txfCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRegistrarCliente)
+                        .addComponent(lblBuscarCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSeleccionarCliente)))
+                        .addComponent(txfCliente)
+                        .addGap(52, 52, 52)
+                        .addComponent(btnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlClienteLayout.createSequentialGroup()
+                        .addComponent(btnSeleccionarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(lblCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblClienteSeleccionado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlClienteLayout.setVerticalGroup(
@@ -366,10 +382,15 @@ public class FrmFactura extends javax.swing.JDialog {
             .addGroup(pnlClienteLayout.createSequentialGroup()
                 .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeleccionarCliente)
-                    .addComponent(btnRegistrarCliente))
+                    .addComponent(btnRegistrarCliente)
+                    .addComponent(lblBuscarCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spnlClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSeleccionarCliente)
+                    .addComponent(lblCliente)
+                    .addComponent(lblClienteSeleccionado))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -386,14 +407,14 @@ public class FrmFactura extends javax.swing.JDialog {
             }
         });
 
-        btnNuevoProducto.setText("Nuevo");
+        btnNuevoProducto.setText("Añadir NuevoProducto");
         btnNuevoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoProductoActionPerformed(evt);
             }
         });
 
-        btnAgregarProducto.setText("Agregar");
+        btnAgregarProducto.setText("Agregar a Detalle");
         btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarProductoActionPerformed(evt);
@@ -417,6 +438,10 @@ public class FrmFactura extends javax.swing.JDialog {
             }
         });
 
+        lblBuscarProd.setText("Buscar Producto:");
+
+        lblCantidad.setText("Cantidad:");
+
         javax.swing.GroupLayout pnlProductoLayout = new javax.swing.GroupLayout(pnlProducto);
         pnlProducto.setLayout(pnlProductoLayout);
         pnlProductoLayout.setHorizontalGroup(
@@ -426,13 +451,18 @@ public class FrmFactura extends javax.swing.JDialog {
                 .addGroup(pnlProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(spnlProductos)
                     .addGroup(pnlProductoLayout.createSequentialGroup()
-                        .addComponent(txfProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNuevoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAgregarProducto)))
+                        .addGroup(pnlProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlProductoLayout.createSequentialGroup()
+                                .addComponent(lblBuscarProd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txfProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblCantidad)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNuevoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlProductoLayout.setVerticalGroup(
@@ -440,19 +470,18 @@ public class FrmFactura extends javax.swing.JDialog {
             .addGroup(pnlProductoLayout.createSequentialGroup()
                 .addGroup(pnlProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txfProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregarProducto)
                     .addComponent(btnNuevoProducto)
-                    .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBuscarProd)
+                    .addComponent(lblCantidad))
                 .addGap(18, 18, 18)
                 .addComponent(spnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAgregarProducto)
                 .addContainerGap())
         );
 
         pnlDetalle.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle"));
-
-        lblCliente.setText("Cliente:");
-
-        lblClienteSeleccionado.setText("Seleccione cliente");
 
         tblDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -467,17 +496,10 @@ public class FrmFactura extends javax.swing.JDialog {
         ));
         spnlDetalles.setViewportView(tblDetalles);
 
-        btnQuitar.setText("Quitar");
+        btnQuitar.setText("Quitar Detalle");
         btnQuitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuitarActionPerformed(evt);
-            }
-        });
-
-        btnFacturar.setText("Facturar");
-        btnFacturar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFacturarActionPerformed(evt);
             }
         });
 
@@ -532,34 +554,37 @@ public class FrmFactura extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(pnlDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spnlDetalles)
+                    .addComponent(spnlDetalles, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
                     .addGroup(pnlDetalleLayout.createSequentialGroup()
-                        .addComponent(lblCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblClienteSeleccionado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDetalleLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnQuitar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnFacturar)))
+                        .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlDetalleLayout.setVerticalGroup(
             pnlDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDetalleLayout.createSequentialGroup()
-                .addGroup(pnlDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCliente)
-                    .addComponent(lblClienteSeleccionado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(spnlDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(25, 25, 25)
+                .addComponent(spnlDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnQuitar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFacturar)
-                    .addComponent(btnQuitar))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btnFacturar.setText("Facturar");
+        btnFacturar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -569,10 +594,13 @@ public class FrmFactura extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlDetalle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(pnlCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFacturar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -584,6 +612,10 @@ public class FrmFactura extends javax.swing.JDialog {
                 .addComponent(pnlProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFacturar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -637,18 +669,6 @@ public class FrmFactura extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnNuevoProductoActionPerformed
 
-    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
-        int selectedRow = tblDetalles.getSelectedRow();
-        
-        if(selectedRow==-1){
-            JOptionPane.showMessageDialog(null, "Seleccione el registro que desea quitar de la factura");
-        }else{
-            eliminarRegistro(selectedRow);
-            resumen();
-        }
-        
-    }//GEN-LAST:event_btnQuitarActionPerformed
-
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
         int idFactura = numFactura();
         int idPersona = idCliente;
@@ -687,6 +707,30 @@ public class FrmFactura extends javax.swing.JDialog {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         //this.setModal(true);
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        JOptionPane.showConfirmDialog (null, "Se perderán los datos de la presente factura. "
+        + "¿Está usted seguro que desea salir? ","WARNING", dialogButton);
+        
+        if(dialogButton == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }else if(dialogButton == JOptionPane.NO_OPTION) {
+            remove(dialogButton);
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        int selectedRow = tblDetalles.getSelectedRow();
+
+        if(selectedRow==-1){
+            JOptionPane.showMessageDialog(null, "Seleccione el registro que desea quitar de la factura");
+        }else{
+            eliminarRegistro(selectedRow);
+            resumen();
+        }
+
+    }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void generarReporte(int idFactura){
         Conexion con = new Conexion();
@@ -816,13 +860,17 @@ public class FrmFactura extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFacturar;
     private javax.swing.JButton btnNuevoProducto;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JButton btnRegistrarCliente;
     private javax.swing.JButton btnSeleccionarCliente;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblBuscarCliente;
+    private javax.swing.JLabel lblBuscarProd;
     private javax.swing.JLabel lblCP;
+    private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCantidadProd;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblClienteSeleccionado;
