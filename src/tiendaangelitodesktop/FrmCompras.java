@@ -221,15 +221,31 @@ public class FrmCompras extends javax.swing.JDialog {
             }
         });
 
+        txfCodLote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfCodLoteActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Código Lote:");
 
         jLabel2.setText("Fecha Fab:");
 
         txfFechaFab.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txfFechaFab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfFechaFabActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Fecha Ven:");
 
         txfFechaVen.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txfFechaVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfFechaVenActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Cantidad por Lote:");
 
@@ -575,7 +591,7 @@ public class FrmCompras extends javax.swing.JDialog {
         int selectedRow = tblDetalles.getSelectedRow();
 
         if(selectedRow==-1){
-            JOptionPane.showMessageDialog(null, "Seleccione el registro que desea quitar de la factura");
+            JOptionPane.showMessageDialog(null, "Seleccione el registro que desea quitar de esta compra");
         }else{
             eliminarRegistro(selectedRow);
             resumen();
@@ -585,6 +601,18 @@ public class FrmCompras extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txfCodLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfCodLoteActionPerformed
+        txfFechaFab.requestFocus();
+    }//GEN-LAST:event_txfCodLoteActionPerformed
+
+    private void txfFechaFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFechaFabActionPerformed
+        txfFechaVen.requestFocus();
+    }//GEN-LAST:event_txfFechaFabActionPerformed
+
+    private void txfFechaVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFechaVenActionPerformed
+        txfCantidad.requestFocus();
+    }//GEN-LAST:event_txfFechaVenActionPerformed
 
     /**
      * @param args the command line arguments
