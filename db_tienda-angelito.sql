@@ -5,15 +5,15 @@ USE tiendaAngelito;
 -- TABLAS--;
 CREATE TABLE persona(
     per_idPersona INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    per_dui VARCHAR(10) NULL DEFAULT '00000000-0' UNIQUE,
-    per_nit VARCHAR(17) NULL DEFAULT '0000-000000-000-0' UNIQUE,
-    per_nup VARCHAR(12) NULL DEFAULT '000000000000' UNIQUE,
-    per_isss VARCHAR(9) NULL DEFAULT '000000000' UNIQUE,
+    per_dui VARCHAR(10) UNIQUE,
+    per_nit VARCHAR(17) UNIQUE,
+    per_nup VARCHAR(12) UNIQUE,
+    per_isss VARCHAR(9) UNIQUE,
     per_nombre VARCHAR(255) NOT NULL,
     per_apellido VARCHAR(255),
     per_direccion VARCHAR(255) NOT NULL UNIQUE,
-    per_telefono VARCHAR(9) NULL DEFAULT '0000-0000' UNIQUE,
-    per_email VARCHAR(100) NULL DEFAULT 'n/a' UNIQUE,
+    per_telefono VARCHAR(9) UNIQUE,
+    per_email VARCHAR(100) UNIQUE,
     per_natural BOOLEAN NULL DEFAULT TRUE
 );
 
@@ -118,13 +118,15 @@ INSERT INTO tipoUsuario(tus_tipoUsuario) VALUES('Vendedor');
 
 -- Valores 0 por defecto--;
 
-INSERT INTO persona(per_idPersona,per_nombre,per_direccion) VALUES (0,'Sin registrar','n/a');
+INSERT INTO persona VALUES (NULL, '00000000-0', '0000-000000-000-0', '000000000000', '000000000', 'Sin registrar', 'null', 'n/a 2', '0000-0000', 'n/a', true);
 UPDATE persona SET per_idPersona=0;
+INSERT INTO persona(per_idPersona, per_nombre, per_direccion) VALUES (0, 'Sin registrar', 'n/a');
 INSERT INTO cliente(cli_idPersona) VALUES(0);
+INSERT INTO cliente(cli_idPersona) VALUES(2);
 INSERT INTO empleado(emp_idPersona) VALUES(0);
 INSERT INTO proveedor(prov_idPersona) VALUES(0);
-INSERT INTO usuario(usu_idUsuario,usu_idPersona,usu_idTipoUsuario,usu_alias,usu_contrasenia) VALUES (-1,0,1,'admin','1234');
-INSERT INTO usuario(usu_idUsuario,usu_idPersona,usu_idTipoUsuario,usu_alias,usu_contrasenia) VALUES (0,0,2,'usu','1234');
+INSERT INTO usuario(usu_idUsuario,usu_idPersona,usu_idTipoUsuario,usu_alias,usu_contrasenia) VALUES (-1,0,1,'admin',MD5('1234'));
+INSERT INTO usuario(usu_idUsuario,usu_idPersona,usu_idTipoUsuario,usu_alias,usu_contrasenia) VALUES (0,0,2,'usu',MD5('1234'));
 UPDATE usuario SET usu_idUsuario = 0 WHERE usu_idUsuario = 1;
 INSERT INTO factura VALUES(0,0,0,'1900-1-1');
 UPDATE factura SET fac_idFactura = 0;
@@ -205,3 +207,15 @@ INNER JOIN persona emp ON empleado.emp_idPersona= emp.per_idPersona
 CROSS JOIN (SELECT SUM(IF (dfa_cantidad >= prod_cantidadMayoreo,prod_precioMayoreo * dfa_cantidad,prod_precio * dfa_cantidad)) AS 'total' FROM detallefactura
 INNER JOIN producto ON producto.prod_idProducto=dfa_idProducto
 INNER JOIN factura ON detallefactura.dfa_idFactura=factura.fac_idFactura WHERE dfa_idFactura=0) b WHERE dfa_idFactura=0;
+
+SELECT per_idPersona, per_nombre, per_apellido, per_direccion, per_telefono,
+    IF(per_natural,'Natural','Jurídica') AS 'Tipo',
+    IF(per_idPersona = cli_idPersona, 'SI', 'NO') AS 'cliente',
+    IF(per_idPersona = prov_idPersona, 'SI', 'NO') AS 'proveedor',
+    IF(per_idPersona = usu_idPersona, 'SI', 'NO') AS 'usuario',
+    IF(per_idPersona = usu_idPersona, tus_tipoUsuario, NULL) AS 'Rol'
+FROM persona
+LEFT JOIN usuario ON usuario.usu_idPersona=persona.per_idPersona
+LEFT JOIN cliente ON cliente.cli_idPersona=persona.per_idPersona
+LEFT JOIN proveedor ON proveedor.prov_idPersona=persona.per_idPersona
+LEFT JOIN tipoUsuario ON usuario.usu_idTipoUsuario=tipoUsuario.tus_idTipoUsuario;
