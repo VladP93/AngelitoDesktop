@@ -534,19 +534,13 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                 }
                 
                 if(prodVendidos>0 && prodComprados>0){
-                    
-                    int dialogButton = JOptionPane.YES_NO_OPTION;
-                    JOptionPane.showConfirmDialog (null, "Este producto tiene compras y ventas "
+                            
+                    int result = JOptionPane.showConfirmDialog (null, "Este producto tiene compras y ventas "
                             + "asociadas a él. ¿Está usted seguro que desea editarlo?","WARNING", 
-                            dialogButton);
-                    
-                    if(dialogButton == JOptionPane.YES_OPTION) {
+                            JOptionPane.YES_NO_OPTION);
 
+                    if(result == JOptionPane.YES_OPTION) {
                         editarProducto();
-                        
-                    }else if(dialogButton == JOptionPane.NO_OPTION) {
-                            remove(dialogButton);
-                        
                     }
                 }else if(prodVendidos>0){
                     
