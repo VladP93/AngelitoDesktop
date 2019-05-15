@@ -92,6 +92,7 @@ public class FrmCompras extends javax.swing.JDialog {
         tblDetalles = new javax.swing.JTable();
         btnQuitar = new javax.swing.JButton();
         btnRegCompra = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -214,7 +215,6 @@ public class FrmCompras extends javax.swing.JDialog {
         ));
         spnlProductos.setViewportView(tblProductos);
 
-        txfCantidad.setText("0");
         txfCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txfCantidadActionPerformed(evt);
@@ -400,6 +400,13 @@ public class FrmCompras extends javax.swing.JDialog {
             }
         });
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -410,6 +417,8 @@ public class FrmCompras extends javax.swing.JDialog {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -423,7 +432,9 @@ public class FrmCompras extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegCompra)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegCompra)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -484,10 +495,10 @@ public class FrmCompras extends javax.swing.JDialog {
             }else{
                 for(int i=0;i<tblDetalles.getModel().getRowCount();i++){
                     try {
-                        codLote = (String) tblDetalles.getValueAt(tblDetalles.getSelectedRow(), 3);
-                        idProducto = tblDetalles.getModel().getValueAt(i, 0).toString();
-                        fechaFab = (String) tblDetalles.getValueAt(tblDetalles.getSelectedRow(), 4);
-                        fechaVen =  (String) tblDetalles.getValueAt(tblDetalles.getSelectedRow(), 5);
+                        codLote =   (String) tblDetalles.getValueAt(i, 3).toString();
+                        idProducto =(String) tblDetalles.getValueAt(i, 0).toString();
+                        fechaFab =  (String) tblDetalles.getValueAt(i, 4).toString();
+                        fechaVen =  (String) tblDetalles.getValueAt(i, 5).toString();
                         cantidad = Integer.parseInt(tblDetalles.getModel().getValueAt(i, 6).toString());
                         precio = Double.parseDouble(tblDetalles.getModel().getValueAt(i, 7).toString());
                         
@@ -535,13 +546,13 @@ public class FrmCompras extends javax.swing.JDialog {
         if((Integer.parseInt(txfCantidad.getText())>0) && (txfCodLote.getText()!=null)
                 &&(txfFechaFab.getText()!=null)&&(txfFechaVen.getText()!=null)
                 &&(Double.parseDouble(txfPrecio.getText())>0)){
+            
             agregarDetalle(obtenerIdProducto());
+            
+            limpiarDatosDetalle();
         }
-        txfCantidad.setText("0");
-        txfCodLote.setText("");
-        txfFechaFab.setText("");
-        txfFechaVen.setText("");
-        txfPrecio.setText("0");
+        
+
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void txfCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfCantidadActionPerformed
@@ -553,15 +564,8 @@ public class FrmCompras extends javax.swing.JDialog {
                 &&(txfFechaFab.getText()!=null)&&(txfFechaVen.getText()!=null)
                 &&(Double.parseDouble(txfPrecio.getText())>0)){
         agregarDetalle(obtenerIdProducto());
-        
-        txfCantidad.setText("0");
-        txfCodLote.setText("");
-        txfFechaFab.setText("");
-        txfFechaVen.setText("");
-        txfPrecio.setText("0");
-        
-        txfProducto.requestFocus();
-        
+        limpiarDatosDetalle();
+             
         }
         
         
@@ -577,6 +581,10 @@ public class FrmCompras extends javax.swing.JDialog {
             resumen();
         }
     }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -619,7 +627,16 @@ public class FrmCompras extends javax.swing.JDialog {
             }
         });
     }
-    
+    private void limpiarDatosDetalle(){
+        txfProducto.setText("");
+        txfCantidad.setText("");
+        txfCodLote.setText("");
+        txfFechaFab.setText("");
+        txfFechaVen.setText("");
+        txfPrecio.setText("");
+        
+        txfProducto.requestFocus();
+    }
     private void seleccionarProveedor() {
         int selectedRow=-1;
         String nombreProveedor="";
@@ -666,7 +683,7 @@ public class FrmCompras extends javax.swing.JDialog {
     }
 
     private void llenarProductos() {
-        Object datos[] = new Object[6];
+        Object datos[] = new Object[4];
         rst = null;
         rst = prod.productos();
         model = new DefaultTableModel();
@@ -735,7 +752,7 @@ public class FrmCompras extends javax.swing.JDialog {
     }
 
     private void filtrarProductos(String filtro) {
-        Object datos[] = new Object[6];
+        Object datos[] = new Object[4];
         rst = null;
         rst = prod.productos(filtro);
         model = new DefaultTableModel();
@@ -783,11 +800,13 @@ public class FrmCompras extends javax.swing.JDialog {
             model = (DefaultTableModel) tblDetalles.getModel();
             rst = null;
             rst = prod.productosPorCodigo(idProducto);
+            
             try {
                 while (rst.next()){
+                    
                     datos[0] = idProducto;
                     datos[1] = rst.getObject(2);
-                    datos[2] = rst.getString(3);
+                    datos[2] = rst.getObject(3);
                     datos[3] = txfCodLote.getText().trim();
                     datos[4] = txfFechaFab.getText();
                     datos[5] = txfFechaVen.getText();
@@ -799,13 +818,14 @@ public class FrmCompras extends javax.swing.JDialog {
                 }
 
                 tblDetalles.setModel(model);
+                resumen();
+                
+                txfProducto.requestFocus();
 
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
             }
-            resumen();
-            actualizar();
-            txfProducto.requestFocus();
+            
     }
 
     private void resumen() {
@@ -822,14 +842,7 @@ public class FrmCompras extends javax.swing.JDialog {
 
     private void actualizar() {
     
-        txfCantidad.setText("0");
-        txfProveedor.setText("");
-        txfProducto.setText("");
-        txfCodLote.setText("");
-        txfFechaFab.setText("");
-        txfFechaVen.setText("");
-        txfPrecio.setText("0");
-        
+        limpiarDatosDetalle();
         llenarProveedores();
         llenarProductos();
         iniciarDetalles();
@@ -844,6 +857,7 @@ public class FrmCompras extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevoProducto;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JButton btnRegCompra;

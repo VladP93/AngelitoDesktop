@@ -17,7 +17,7 @@ public class Compra {
         
     public ResultSet comprar(String codLote, String idProducto, String FechaFab, String FechaVen,
             int cantidad, double precio, int idCompra, int idPersona, int idProveedor){
-        return cnx.getValores("call proc_comprar('"+codLote+"',"+idProducto+",'"+FechaFab+"','"+FechaVen+"',"+cantidad+","+precio+","+idCompra+","+idPersona+","+idProveedor+")");
+        return cnx.getValores("call proc_comprar('"+codLote+"','"+idProducto+"','"+FechaFab+"','"+FechaVen+"',"+cantidad+","+precio+","+idCompra+","+idPersona+","+idProveedor+")");
     }
     
     public ResultSet ultimaCompra(){
