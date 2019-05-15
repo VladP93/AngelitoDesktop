@@ -186,8 +186,9 @@ BEGIN
                 THEN
                     INSERT INTO compra VALUES (NULL, in_idUsuario, in_idProv, NOW());
             END IF;
-            INSERT INTO detalleCompra VALUES (in_idLote, in_idCompra);
+            INSERT INTO detalleCompra VALUES ((SELECT lot_idLote FROM lote order by lot_idLote DESC LIMIT 1), in_idCompra);
             UPDATE producto SET prod_cantidad = (cantidad + in_contenido) WHERE prod_idProducto = in_idProducto;
+            SELECT CONCAT('Compra exitosa ', in_contenido, ' unidades agregadas al producto ', in_idProducto);
     END IF;
 END//
 DELIMITER ;
