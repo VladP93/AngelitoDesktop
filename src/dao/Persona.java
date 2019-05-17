@@ -30,6 +30,20 @@ public class Persona {
         return cnx.getValores("SELECT * FROM persona");
     }
     
+    public ResultSet personasEntidad(){
+        return cnx.getValores("SELECT per_idPersona, per_nombre, per_apellido, per_direccion, per_telefono,\n" +
+            "    IF(per_natural,'Natural','Jurídica') AS 'Tipo',\n" +
+            "    IF(per_idPersona = cli_idPersona, 'SI', 'NO') AS 'cliente',\n" +
+            "    IF(per_idPersona = prov_idPersona, 'SI', 'NO') AS 'proveedor',\n" +
+            "    IF(per_idPersona = usu_idPersona, 'SI', 'NO') AS 'usuario',\n" +
+            "    IF(per_idPersona = usu_idPersona, tus_tipoUsuario, NULL) AS 'Rol'\n" +
+            "FROM persona\n" +
+            "LEFT JOIN usuario ON usuario.usu_idPersona=persona.per_idPersona\n" +
+            "LEFT JOIN cliente ON cliente.cli_idPersona=persona.per_idPersona\n" +
+            "LEFT JOIN proveedor ON proveedor.prov_idPersona=persona.per_idPersona\n" +
+            "LEFT JOIN tipoUsuario ON usuario.usu_idTipoUsuario=tipoUsuario.tus_idTipoUsuario");
+    }
+    
      public ResultSet ClienteProve() {
         return cnx.getValores(" SELECT per_idPersona, per_nombre, per_apellido, per_dui, per_nit FROM persona");
     }

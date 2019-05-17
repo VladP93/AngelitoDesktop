@@ -21,7 +21,7 @@ public class Compra {
     }
     
     public ResultSet ultimaCompra(){
-        return cnx.getValores("SELECT dco_idCompra FROM detallecompra ORDER BY dco_idCompra DESC LIMIT 1");
+        return cnx.getValores("SELECT com_idCompra FROM compra ORDER BY com_idCompra DESC LIMIT 1");
     }
     
 }
