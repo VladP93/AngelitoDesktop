@@ -40,6 +40,7 @@ public class FrmCompras extends javax.swing.JDialog {
         super(parent, modal);
         
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarProveedores();
         llenarProductos();
         iniciarDetalles();

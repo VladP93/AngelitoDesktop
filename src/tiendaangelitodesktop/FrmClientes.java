@@ -28,6 +28,7 @@ public class FrmClientes extends javax.swing.JDialog {
     public FrmClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
            initComponents();
+           this.setLocationRelativeTo(null);
         this.parent = parent;
         llenarTabla();
     }

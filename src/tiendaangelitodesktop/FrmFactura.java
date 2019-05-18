@@ -50,6 +50,7 @@ public class FrmFactura extends javax.swing.JDialog {
         super(parent, modal);
         this.parent = parent;
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarClientes();
         llenarProductos();
         iniciarDetalles();

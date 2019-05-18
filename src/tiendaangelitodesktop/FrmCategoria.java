@@ -31,6 +31,7 @@ public class FrmCategoria extends javax.swing.JDialog {
         super(parent, modal);
         this.parent = parent;
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarTabla();
     }
     

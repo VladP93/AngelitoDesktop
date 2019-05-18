@@ -30,6 +30,7 @@ public class FrmPersonas extends javax.swing.JDialog {
         super(parent, modal);
         this.parent = parent;
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarTabla1();
         setEntidades();
         lblAlerta.setText("");
