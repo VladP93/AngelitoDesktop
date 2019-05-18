@@ -17,6 +17,7 @@ public class FrmAdministrarUsuario extends javax.swing.JDialog {
     public FrmAdministrarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
