@@ -21,7 +21,7 @@ public class TiendaAngelitoDesktop {
      */
     public static void main(String[] args) {
         try {
-            // TODO code application logic here
+            // Tema agregado
             UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TiendaAngelitoDesktop.class.getName()).log(Level.SEVERE, null, ex);
