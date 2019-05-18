@@ -5,6 +5,11 @@
  */
 package tiendaangelitodesktop;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author vladi
@@ -15,7 +20,18 @@ public class TiendaAngelitoDesktop {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            // TODO code application logic here
+            UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TiendaAngelitoDesktop.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(TiendaAngelitoDesktop.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(TiendaAngelitoDesktop.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(TiendaAngelitoDesktop.class.getName()).log(Level.SEVERE, null, ex);
+        }
         FrmPrincipal frame = new FrmPrincipal();
         frame.setVisible(true);
     }
