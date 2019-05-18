@@ -6,6 +6,7 @@
 package tiendaangelitodesktop;
 
 import java.awt.Toolkit;
+import java.awt.Image;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -24,6 +25,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
     }
+    
+//    public Image getIconImage(){
+//        Image retValue = Toolkit.getDefaultToolkit().getImage("recursos.iconos/IconoBarra.png");
+//        return retValue;
+//    }
     
     private void desactivarPanel(){
         btnCompras.setEnabled(false);
@@ -113,6 +119,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Tienda Angelito");
         setExtendedState(MAXIMIZED_BOTH);
+        setIconImage(getIconImage());
         setName("Principal"); // NOI18N
         setUndecorated(true);
         setResizable(false);
@@ -130,53 +137,140 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Tienda Angelito");
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/imagenes/logopequeño.png"))); // NOI18N
+        lblTitulo.setMaximumSize(new java.awt.Dimension(270, 170));
+        lblTitulo.setPreferredSize(new java.awt.Dimension(200, 180));
 
+        btnReportes.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/reporte1.png"))); // NOI18N
         btnReportes.setText("Reportes");
+        btnReportes.setBorder(null);
+        btnReportes.setBorderPainted(false);
+        btnReportes.setContentAreaFilled(false);
+        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnReportes.setFocusPainted(false);
+        btnReportes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReportes.setIconTextGap(2);
+        btnReportes.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/reporte3.png"))); // NOI18N
+        btnReportes.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/reporte2.png"))); // NOI18N
+        btnReportes.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnReportes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReportesActionPerformed(evt);
             }
         });
 
+        btnProductos.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/productos1.png"))); // NOI18N
         btnProductos.setText("Productos");
+        btnProductos.setBorder(null);
+        btnProductos.setBorderPainted(false);
+        btnProductos.setContentAreaFilled(false);
+        btnProductos.setFocusPainted(false);
+        btnProductos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProductos.setIconTextGap(2);
+        btnProductos.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/productos3.png"))); // NOI18N
+        btnProductos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/productos2.png"))); // NOI18N
+        btnProductos.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnProductos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosActionPerformed(evt);
             }
         });
 
+        btnFacturar.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        btnFacturar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/Factura1.png"))); // NOI18N
         btnFacturar.setText("Facturar");
+        btnFacturar.setBorder(null);
+        btnFacturar.setBorderPainted(false);
+        btnFacturar.setContentAreaFilled(false);
+        btnFacturar.setFocusPainted(false);
+        btnFacturar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFacturar.setIconTextGap(2);
         btnFacturar.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        btnFacturar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/Factura3.png"))); // NOI18N
+        btnFacturar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/Factura2.png"))); // NOI18N
+        btnFacturar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnFacturar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnFacturar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFacturarActionPerformed(evt);
             }
         });
 
+        btnRegistrar.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/registrar1.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.setBorder(null);
+        btnRegistrar.setBorderPainted(false);
+        btnRegistrar.setContentAreaFilled(false);
+        btnRegistrar.setFocusPainted(false);
+        btnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRegistrar.setIconTextGap(2);
+        btnRegistrar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/registrar3.png"))); // NOI18N
+        btnRegistrar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/registrar2.png"))); // NOI18N
+        btnRegistrar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnRegistrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
             }
         });
 
+        btnDesconectar.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        btnDesconectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/desconectar1.png"))); // NOI18N
         btnDesconectar.setText("Desconectar");
+        btnDesconectar.setBorder(null);
+        btnDesconectar.setBorderPainted(false);
+        btnDesconectar.setContentAreaFilled(false);
+        btnDesconectar.setFocusPainted(false);
+        btnDesconectar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDesconectar.setIconTextGap(2);
+        btnDesconectar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/desconectar3.png"))); // NOI18N
+        btnDesconectar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/desconectar2.png"))); // NOI18N
+        btnDesconectar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnDesconectar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnDesconectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDesconectarActionPerformed(evt);
             }
         });
 
+        btnCompras.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        btnCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/compras1.png"))); // NOI18N
         btnCompras.setText("Compras");
+        btnCompras.setBorder(null);
+        btnCompras.setBorderPainted(false);
+        btnCompras.setContentAreaFilled(false);
+        btnCompras.setFocusPainted(false);
+        btnCompras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCompras.setIconTextGap(2);
+        btnCompras.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/compras3.png"))); // NOI18N
+        btnCompras.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/compras2.png"))); // NOI18N
+        btnCompras.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnCompras.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComprasActionPerformed(evt);
             }
         });
 
+        btnSalir.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/cerrar1.png"))); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.setBorder(null);
+        btnSalir.setBorderPainted(false);
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setFocusPainted(false);
+        btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalir.setIconTextGap(2);
+        btnSalir.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/cerrar3.png"))); // NOI18N
+        btnSalir.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/cerrar2.png"))); // NOI18N
+        btnSalir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -184,9 +278,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         jMenu1.setText("File");
+        jMenu1.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+        jMenu2.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -195,12 +291,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnReportes)
+                        .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnProductos)
                         .addGap(18, 18, 18)
@@ -212,13 +307,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(btnRegistrar))
                     .addComponent(btnSalir))
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnReportes)
                     .addComponent(btnProductos)
