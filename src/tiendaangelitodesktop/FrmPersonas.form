@@ -78,16 +78,17 @@
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="scrRegistro" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblNombre" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="lblApellido" alignment="0" max="32767" attributes="0"/>
                                       <Component id="lblDUI" alignment="0" max="32767" attributes="0"/>
                                       <Component id="lblNIT" alignment="0" max="32767" attributes="0"/>
                                       <Component id="lblDireccion" alignment="0" pref="56" max="32767" attributes="0"/>
                                       <Component id="lblEntidad" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblNombre" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txfNombre" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="chkCliente" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -96,11 +97,12 @@
                                           <Component id="chkProveedor" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="txfApellido" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="txfNombre" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="txfNIT" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txfDUI" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txfDireccion" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="txfDireccion" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txfNIT" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txfDUI" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txfApellido" alignment="1" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
@@ -110,7 +112,7 @@
                                           <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lblTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="lblEmail" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
@@ -121,7 +123,7 @@
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="txfISSS" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="cmbTipo" max="32767" attributes="0"/>
+                                              <Component id="cmbTipo" pref="226" max="32767" attributes="0"/>
                                               <Component id="txfEmail" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txfAFP" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txfTelefono" alignment="0" max="32767" attributes="0"/>
@@ -315,6 +317,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Limpiar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scrRegistro">
           <AuxValues>
@@ -407,6 +412,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSalir">
           <Properties>
@@ -420,6 +428,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ver Detalles"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDetallesActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblAlerta">
           <Properties>
