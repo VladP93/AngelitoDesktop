@@ -108,4 +108,34 @@ public class Persona {
     public ResultSet filtrarCliente(String filtro) {
         return cnx.getValores("SELECT per_idPersona, per_nombre, per_apellido, per_dui, per_nit FROM persona WHERE per_dui LIKE '"+filtro+"%'");
     }
+    
+    public ResultSet obtenerSiCliente(int idPersona){
+        return cnx.getValores("SELECT COUNT(*) FROM persona "
+                + "INNER JOIN cliente ON per_idPersona = cli_idPersona "
+                + "INNER JOIN factura ON fac_idPersona = cli_idPersona "
+                + "WHERE per_idPersona = "+idPersona);
+    }
+    
+    public ResultSet obtenerSiProveedor(int idPersona){
+        return cnx.getValores("SELECT COUNT(*) FROM persona "
+                + "INNER JOIN proveedor ON per_idPersona = prov_idPersona "
+                + "INNER JOIN compra ON com_idPersona = prov_idPersona "
+                + "WHERE per_idPersona = "+idPersona);
+    }
+    
+    public ResultSet obtenerSiUsuarioComp(int idPersona){
+        return cnx.getValores("SELECT COUNT(*) FROM persona "
+                + "INNER JOIN empleado ON per_idPersona = emp_idPersona "
+                + "INNER JOIN usuario ON emp_idPersona = usu_idPersona "
+                + "INNER JOIN compra ON com_idUsuario = usu_idUsuario "
+                + "WHERE per_idPersona = "+idPersona);
+    }
+    
+    public ResultSet obtenerSiUsuarioFac(int idPersona){
+        return cnx.getValores("SELECT COUNT(*) FROM persona "
+                + "INNER JOIN empleado ON per_idPersona = emp_idPersona "
+                + "INNER JOIN usuario ON emp_idPersona = usu_idPersona "
+                + "INNER JOIN factura ON fac_idUsuario = usu_idUsuario "
+                + "WHERE per_idPersona = "+idPersona);
+    }
 }

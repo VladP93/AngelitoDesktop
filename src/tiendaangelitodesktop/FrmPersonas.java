@@ -524,12 +524,86 @@ public class FrmPersonas extends javax.swing.JDialog {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int idPersona=0;
+        boolean cli=false;
+        boolean emp=false;
+        boolean pro=false;
+        int totPerVentas=0;
+        int totPerCompras=0;
+        int totUsuFactura=0;
+        int totUsuCompras=0;
+        
+//        if (chkCliente.isSelected()){
+//            cli=true;
+//        }
+//        if (chkEmpleado.isSelected()){
+//            emp=true;
+//        }
+//        if (chkProveedor.isSelected()){
+//            pro=true;
+//        }
+        
+        
         if(tblPersona.getSelectedRow()==-1){
             JOptionPane.showMessageDialog(this, "Seleccione el registro que desea eliminar");
         } else {
+            
+            ResultSet perConVentas = null;
+            ResultSet perConCompras = null;
+            ResultSet usuConVentas = null;
+            ResultSet usuConCompras = null;
+            
             idPersona = Integer.parseInt(tblPersona.getValueAt(tblPersona.getSelectedRow(), 0).toString());
-            per.eliminarPersona(idPersona);
-            JOptionPane.showMessageDialog(this, "Registro eliminado");
+            perConVentas = per.obtenerSiCliente(idPersona);
+            perConCompras = per.obtenerSiProveedor(idPersona);
+            usuConVentas = per.obtenerSiUsuarioFac(idPersona);
+            usuConCompras = per.obtenerSiUsuarioComp(idPersona);
+            
+            try {
+                while (perConVentas.next()){
+                    totPerVentas=perConVentas.getInt(1);
+                }
+                while (perConCompras.next()){
+                    totPerCompras=perConCompras.getInt(1);
+                }
+                while (usuConVentas.next()){
+                    totUsuFactura=usuConVentas.getInt(1);
+                }
+                while (usuConCompras.next()){
+                    totUsuCompras=usuConCompras.getInt(1);
+                }
+                
+                if (totPerVentas>0){
+                    JOptionPane.showMessageDialog(this, "Esta persona es cliente de la tienda y tiene Ventas asociadas a su registro. No se puede eliminar");
+                    
+                }else if (totPerCompras>0){
+                    JOptionPane.showMessageDialog(this, "Esta persona es proveedor de la tienda y tiene Compras asociadas a su registro. No se puede eliminar");
+                    
+                }else if (totUsuFactura>0){
+                    JOptionPane.showMessageDialog(this, "Esta persona ha registrado Ventas para la tienda. No se puede eliminar");
+                    
+                }else if (totUsuCompras>0){
+                    JOptionPane.showMessageDialog(this, "Esta persona ha registrado Compras para la tienda. No se puede eliminar");
+                    
+                }else{
+                    int result = JOptionPane.showConfirmDialog (null, "¿Está usted seguro que desea "
+                            + "eliminar a esta persona del sistema?","WARNING", 
+                            JOptionPane.YES_NO_OPTION);
+
+                    if(result == JOptionPane.YES_OPTION) {
+                        per.eliminarPersona(idPersona);
+                        JOptionPane.showMessageDialog(this, "Registro eliminado");
+                    }
+                    
+                    
+                }
+                
+                
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+            
+            
+            
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
