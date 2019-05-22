@@ -23,6 +23,16 @@ public class FrmEditarPersona extends javax.swing.JDialog {
     ResultSet rst;
     boolean editar=false;
     boolean cliente=false, empleado=false, proveedor=false;
+
+    
+    int totPerVentas=0;
+    int totPerCompras=0;
+    int totUsuFactura=0;
+    int totUsuCompras=0;
+    
+    int cambioCli=0;
+    int cambioPro=0;
+    int cambioEmp=0;
     /**
      * Creates new form FrmEditarPersona
      */
@@ -39,6 +49,7 @@ public class FrmEditarPersona extends javax.swing.JDialog {
         this.editar = editar;
         setUpFormulario();
         llenarFormulario();
+        
     }
     
     private void setUpFormulario(){
@@ -54,6 +65,10 @@ public class FrmEditarPersona extends javax.swing.JDialog {
         chkCliente.setEnabled(editar);
         chkEmpleado.setEnabled(editar);
         chkProveedor.setEnabled(editar);
+        
+        
+        
+        
         
         if(!editar){
             btnAceptar.setVisible(false);
@@ -81,6 +96,31 @@ public class FrmEditarPersona extends javax.swing.JDialog {
         try{
             rst = null;
             rst = per.personasEntidad(idPersona);
+            
+
+            
+            ResultSet perConVentas = null;
+            ResultSet perConCompras = null;
+            ResultSet usuConVentas = null;
+            ResultSet usuConCompras = null;
+            
+            perConVentas = per.obtenerSiCliente(idPersona);
+            perConCompras = per.obtenerSiProveedor(idPersona);
+            usuConVentas = per.obtenerSiUsuarioFac(idPersona);
+            usuConCompras = per.obtenerSiUsuarioComp(idPersona);
+            
+            while (perConVentas.next()){
+                totPerVentas=perConVentas.getInt(1);
+            }
+            while (perConCompras.next()){
+                totPerCompras=perConCompras.getInt(1);
+            }
+            while (usuConVentas.next()){
+                totUsuFactura=usuConVentas.getInt(1);
+            }
+            while (usuConCompras.next()){
+                totUsuCompras=usuConCompras.getInt(1);
+            }
             
             while(rst.next()){
                 txfDUI.setText(rst.getString(1));
@@ -391,14 +431,25 @@ public class FrmEditarPersona extends javax.swing.JDialog {
         } else {
             if(apellido==null || dui==null || nit==null || telefono==null || email==null || afp==null || isss==null ){
                 if(JOptionPane.showConfirmDialog(this, "El formulario contiene campos vacíos.\n¿Desea continuar?")==JOptionPane.YES_OPTION){
-                    modificarReg(dui, nit, afp, isss, nombre, apellido, direccion, telefono, email);
                     modificarEntidades();
+                    if (cambioCli==1 && cambioEmp==1 && cambioPro ==1){
+                        modificarReg(dui, nit, afp, isss, nombre, apellido, direccion, telefono, email);
+                        cambioCli=0;
+                        cambioPro=0;
+                        cambioEmp=0;
+                    }
                 }else{
                     JOptionPane.showMessageDialog(this, "Operación abortada");
                 }
             } else{
-                modificarReg(dui, nit, afp, isss, nombre, apellido, direccion, telefono, email);
                 modificarEntidades();
+                if (cambioCli==1 && cambioEmp==1 && cambioPro ==1){
+                    modificarReg(dui, nit, afp, isss, nombre, apellido, direccion, telefono, email);
+                    cambioCli=0;
+                    cambioPro=0;
+                    cambioEmp=0;
+                }
+                        
             }
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
@@ -411,23 +462,69 @@ public class FrmEditarPersona extends javax.swing.JDialog {
         if(cliente!=chkCliente.isSelected()){
             if(chkCliente.isSelected()){
                 per.agregarCliente(idPersona);
+                cambioCli=1;
             } else{
-                per.eliminarCliente(idPersona);
+                if (totPerVentas>0){
+                    JOptionPane.showMessageDialog(this, "Este Cliente tiene Ventas asociadas a su registro. No se puede eliminar como Cliente");
+                    chkCliente.setSelected(true);
+                    chkCliente.setEnabled(false);
+                    cambioCli=0;
+                    
+                }else{
+                    per.eliminarCliente(idPersona);
+                    cambioCli=1;
+                }
             }
+            
+        }else{
+            cambioCli=1;
         }
         if(empleado!=chkEmpleado.isSelected()){
             if(chkEmpleado.isSelected()){
                 per.agregarEmpleado(idPersona);
+                cambioEmp=1;
             } else{
-                per.eliminarEmpleado(idPersona);
+                if (totUsuFactura>0){
+                    JOptionPane.showMessageDialog(this, "Este Empleado tiene Ventas realizadas en su registro. No se puede eliminar como Empleado");
+                    chkEmpleado.setSelected(true);
+                    chkEmpleado.setEnabled(false);
+                    cambioEmp=0;
+                    
+                }else if(totUsuCompras>0){
+                    JOptionPane.showMessageDialog(this, "Este Empleado tiene Compras realizadas en su registro. No se puede eliminar como Empleado");
+                    chkEmpleado.setSelected(true);
+                    chkEmpleado.setEnabled(false);
+                    cambioEmp=0;
+                    
+                
+                }else{
+                    per.eliminarEmpleado(idPersona);
+                    cambioEmp=1;
+                }
             }
+        }else{
+            cambioEmp=1;
         }
+        
         if(proveedor!=chkProveedor.isSelected()){
             if(chkProveedor.isSelected()){
                 per.agregarProveedor(idPersona);
+                cambioPro=1;
             } else{
-                per.eliminarProveedor(idPersona);
+                if (totPerCompras>0){
+                    JOptionPane.showMessageDialog(this, "Este Proveedor tiene Compras asociadas a su registro. No se puede eliminar como Proveedor");
+                    chkProveedor.setSelected(true);
+                    chkProveedor.setEnabled(false);
+                    cambioPro=0;
+                }else{
+                    per.eliminarProveedor(idPersona);
+                    cambioPro=1;
+                }
+                
+                
             }
+        }else{
+            cambioPro=1;
         }
     }
     

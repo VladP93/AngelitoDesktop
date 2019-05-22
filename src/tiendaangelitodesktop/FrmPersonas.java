@@ -532,16 +532,7 @@ public class FrmPersonas extends javax.swing.JDialog {
         int totUsuFactura=0;
         int totUsuCompras=0;
         
-//        if (chkCliente.isSelected()){
-//            cli=true;
-//        }
-//        if (chkEmpleado.isSelected()){
-//            emp=true;
-//        }
-//        if (chkProveedor.isSelected()){
-//            pro=true;
-//        }
-        
+       
         
         if(tblPersona.getSelectedRow()==-1){
             JOptionPane.showMessageDialog(this, "Seleccione el registro que desea eliminar");
