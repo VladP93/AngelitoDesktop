@@ -5,10 +5,19 @@
  */
 package tiendaangelitodesktop;
 
+import dao.Backup;
 import java.awt.Toolkit;
 import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,6 +25,8 @@ import javax.swing.JTextField;
  */
 public class FrmPrincipal extends javax.swing.JFrame {
     //FrmLogin login;
+    ResultSet rst;
+    Backup bu = new Backup();
     int width = Toolkit.getDefaultToolkit().getScreenSize().width;
     int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 
@@ -115,6 +126,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        mnuGenerarBackup = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Tienda Angelito");
@@ -277,12 +289,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("File");
+        jMenu1.setText("Archivo");
         jMenu1.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Herramientas");
         jMenu2.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+
+        mnuGenerarBackup.setText("Generar back-up");
+        mnuGenerarBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuGenerarBackupActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuGenerarBackup);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -390,6 +411,328 @@ public class FrmPrincipal extends javax.swing.JFrame {
         per.setVisible(true);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+    private void mnuGenerarBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGenerarBackupActionPerformed
+        FileReader fr;
+        JFileChooser chooser = new JFileChooser();
+        FileWriter fw;
+        String linea;
+        JOptionPane.showMessageDialog(this, "Esta acción puede demorar algunos minutos.");
+        chooser.setCurrentDirectory(new File("/home/me/Desktop"));
+        int retrival = chooser.showSaveDialog(null);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            try {
+                fw = new FileWriter(chooser.getSelectedFile()+".txt");
+                fr = new FileReader(new File(this.getClass().getResource("../recursos/db/database").toURI()));
+                BufferedReader bf = new BufferedReader(fr);
+                while((linea = bf.readLine()) != null){
+                    fw.write(linea+System.getProperty("line.separator"));
+                }
+                fw.write(System.getProperty("line.separator")+buPersonas());
+                fw.write(buClientes());
+                fw.write(buEmpleados());
+                fw.write(buProveedores());
+                fw.write(buTiposUsuario());
+                fw.write(buUsuarios());
+                fw.write(buFacturas());
+                fw.write(buCompras());
+                fw.write(buCategorias());
+                fw.write(buProductos());
+                fw.write(buDetallesFactura());
+                fw.write(buLotes());
+                fw.write(buDetallesCompra());
+                fw.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_mnuGenerarBackupActionPerformed
+
+    private String buPersonas(){
+        String insertPersonas="";
+        rst = null;
+        rst = bu.getPersonas();
+        
+        try {
+            while (rst.next()){
+                insertPersonas = insertPersonas + "INSERT INTO persona VALUES("
+                        +nullable(rst.getString(1))+", "
+                        +nullable(rst.getString(2))+", "
+                        +nullable(rst.getString(3))+", "
+                        +nullable(rst.getString(4))+", "
+                        +nullable(rst.getString(5))+", "
+                        +nullable(rst.getString(6))+", "
+                        +nullable(rst.getString(7))+", "
+                        +nullable(rst.getString(8))+", "
+                        +nullable(rst.getString(9))+", "
+                        +nullable(rst.getString(10))+", "
+                        +nullable(rst.getString(11))+");";
+                insertPersonas = insertPersonas + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertPersonas;
+    }
+    
+    private String buClientes(){
+        String insertClientes="";
+        rst = null;
+        rst = bu.getClientes();
+        
+        try {
+            while (rst.next()){
+                insertClientes = insertClientes + "INSERT INTO cliente VALUES("
+                        +nullable(rst.getString(1))+");";
+                insertClientes = insertClientes + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertClientes;
+    }
+    
+    private String buEmpleados(){
+        String insertEmpleados="";
+        rst = null;
+        rst = bu.getEmpleados();
+        
+        try {
+            while (rst.next()){
+                insertEmpleados = insertEmpleados + "INSERT INTO empleado VALUES("
+                        +nullable(rst.getString(1))+");";
+                insertEmpleados = insertEmpleados + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertEmpleados;
+    }
+    
+    private String buProveedores(){
+        String insertProveedores="";
+        rst = null;
+        rst = bu.getProveedores();
+        
+        try {
+            while (rst.next()){
+                insertProveedores = insertProveedores + "INSERT INTO proveedor VALUES("
+                        +nullable(rst.getString(1))+");";
+                insertProveedores = insertProveedores + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertProveedores;
+    }
+    
+    private String buTiposUsuario(){
+        String insertTiposUsuario="";
+        rst = null;
+        rst = bu.getTiposDeUsuario();
+        
+        try {
+            while (rst.next()){
+                insertTiposUsuario = insertTiposUsuario + "INSERT INTO tipousuario VALUES("
+                    +nullable(rst.getString(1))+", "
+                    +nullable(rst.getString(2))+");";
+                insertTiposUsuario = insertTiposUsuario + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertTiposUsuario;
+    }
+    
+    private String buUsuarios(){
+        String insertUsuarios="";
+        rst = null;
+        rst = bu.getUsuarios();
+        
+        try {
+            while (rst.next()){
+                insertUsuarios = insertUsuarios + "INSERT INTO usuario VALUES("
+                        +nullable(rst.getString(1))+", "
+                        +nullable(rst.getString(2))+", "
+                        +nullable(rst.getString(3))+", "
+                        +nullable(rst.getString(4))+", "
+                        +nullable(rst.getString(5))+");";
+                insertUsuarios = insertUsuarios + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertUsuarios;
+    }
+    
+    private String buFacturas(){
+        String insertFacturas="";
+        rst = null;
+        rst = bu.getFacturas();
+        
+        try {
+            while (rst.next()){
+                insertFacturas = insertFacturas + "INSERT INTO factura VALUES("
+                        +nullable(rst.getString(1))+", "
+                        +nullable(rst.getString(2))+", "
+                        +nullable(rst.getString(3))+", "
+                        +nullable(rst.getString(4))+");";
+                insertFacturas = insertFacturas + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertFacturas;
+    }
+    
+    private String buCompras(){
+        String insertCompras="";
+        rst = null;
+        rst = bu.getCompras();
+        
+        try {
+            while (rst.next()){
+                insertCompras = insertCompras + "INSERT INTO compra VALUES("
+                        +nullable(rst.getString(1))+", "
+                        +nullable(rst.getString(2))+", "
+                        +nullable(rst.getString(3))+", "
+                        +nullable(rst.getString(4))+");";
+                insertCompras = insertCompras + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertCompras;
+    }
+    
+    private String buCategorias(){
+        String insertCategorias="";
+        rst = null;
+        rst = bu.getCategorias();
+        
+        try {
+            while (rst.next()){
+                insertCategorias = insertCategorias + "INSERT INTO categoria VALUES("
+                        +nullable(rst.getString(1))+", "
+                        +nullable(rst.getString(2))+");";
+                insertCategorias = insertCategorias + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertCategorias;
+    }
+    
+    private String buProductos(){
+        String insertProductos="";
+        rst = null;
+        rst = bu.getProductos();
+        
+        try {
+            while (rst.next()){
+                insertProductos = insertProductos + "INSERT INTO producto VALUES("
+                        +nullable(rst.getString(1))+", "
+                        +nullable(rst.getString(2))+", "
+                        +nullable(rst.getString(3))+", "
+                        +nullable(rst.getString(4))+", "
+                        +nullable(rst.getString(5))+", "
+                        +nullable(rst.getString(6))+", "
+                        +nullable(rst.getString(7))+", "
+                        +nullable(rst.getString(8))+", "
+                        +nullable(rst.getString(9))+", "
+                        +nullable(rst.getString(10))+");";
+                insertProductos = insertProductos + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertProductos;
+    }
+    
+    private String buDetallesFactura(){
+        String insertDetallesFactura="";
+        rst = null;
+        rst = bu.getDetallesFactura();
+        
+        try {
+            while (rst.next()){
+                insertDetallesFactura = insertDetallesFactura + "INSERT INTO detallefactura VALUES("
+                        +nullable(rst.getString(1))+", "
+                        +nullable(rst.getString(2))+", "
+                        +nullable(rst.getString(3))+", "
+                        +nullable(rst.getString(4))+");";
+                insertDetallesFactura = insertDetallesFactura + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertDetallesFactura;
+    }
+    
+    private String buLotes(){
+        String insertLotes="";
+        rst = null;
+        rst = bu.getLotes();
+        
+        try {
+            while (rst.next()){
+                insertLotes = insertLotes + "INSERT INTO lote VALUES("
+                        +nullable(rst.getString(1))+", "
+                        +nullable(rst.getString(2))+", "
+                        +nullable(rst.getString(3))+", "
+                        +nullable(rst.getString(4))+", "
+                        +nullable(rst.getString(5))+", "
+                        +nullable(rst.getString(6))+", "
+                        +nullable(rst.getString(7))+");";
+                insertLotes = insertLotes + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertLotes;
+    }
+    
+    private String buDetallesCompra(){
+        String insertDetallesCompra="";
+        rst = null;
+        rst = bu.getDetallesCompra();
+        
+        try {
+            while (rst.next()){
+                insertDetallesCompra = insertDetallesCompra + "INSERT INTO detallecompra VALUES("
+                        +nullable(rst.getString(1))+", "
+                        +nullable(rst.getString(2))+");";
+                insertDetallesCompra = insertDetallesCompra + System.getProperty("line.separator");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return insertDetallesCompra;
+    }
+    
+    private String nullable(String dato){
+        if(dato==null){
+            dato="null";
+        }
+        if(!dato.equals("null")){
+            dato = "'"+dato+"'";
+        }
+        
+        return dato;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -437,5 +780,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JMenuItem mnuGenerarBackup;
     // End of variables declaration//GEN-END:variables
 }
