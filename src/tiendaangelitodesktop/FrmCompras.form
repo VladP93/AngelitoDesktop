@@ -153,6 +153,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tblProveedoresKeyPressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -298,6 +301,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tblProductosKeyPressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -491,6 +497,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tblDetallesKeyPressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

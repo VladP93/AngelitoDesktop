@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import dao.Compra;
 import dao.Producto;
 import dao.Proveedor;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -132,6 +133,11 @@ public class FrmCompras extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblProveedores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblProveedoresKeyPressed(evt);
+            }
+        });
         spnlClientes.setViewportView(tblProveedores);
 
         jLabel7.setText("Buscar Proveedor:");
@@ -214,6 +220,11 @@ public class FrmCompras extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblProductos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblProductosKeyPressed(evt);
+            }
+        });
         spnlProductos.setViewportView(tblProductos);
 
         txfCantidad.addActionListener(new java.awt.event.ActionListener() {
@@ -383,6 +394,11 @@ public class FrmCompras extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDetalles.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblDetallesKeyPressed(evt);
+            }
+        });
         spnlDetalles.setViewportView(tblDetalles);
 
         btnQuitar.setText("Quitar Detalle");
@@ -396,7 +412,7 @@ public class FrmCompras extends javax.swing.JDialog {
         pnlDetalle.setLayout(pnlDetalleLayout);
         pnlDetalleLayout.setHorizontalGroup(
             pnlDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spnlDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, 809, Short.MAX_VALUE)
+            .addComponent(spnlDetalles)
             .addGroup(pnlDetalleLayout.createSequentialGroup()
                 .addComponent(btnQuitar)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -622,6 +638,24 @@ public class FrmCompras extends javax.swing.JDialog {
     private void txfFechaVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFechaVenActionPerformed
         txfCantidad.requestFocus();
     }//GEN-LAST:event_txfFechaVenActionPerformed
+
+    private void tblProveedoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProveedoresKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_TAB){
+           btnSeleccionarProveedor.requestFocus();
+       }
+    }//GEN-LAST:event_tblProveedoresKeyPressed
+
+    private void tblProductosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProductosKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_TAB){
+           txfCodLote.requestFocus();
+       }
+    }//GEN-LAST:event_tblProductosKeyPressed
+
+    private void tblDetallesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDetallesKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_TAB){
+           btnQuitar.requestFocus();
+       }
+    }//GEN-LAST:event_tblDetallesKeyPressed
 
     /**
      * @param args the command line arguments

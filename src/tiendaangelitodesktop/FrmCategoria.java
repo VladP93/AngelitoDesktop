@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import dao.Categoria;
+import java.awt.event.KeyEvent;
 import tiendaangelitodesktop.editar.FrmEditarCategoria;
 import vladlidar.gui.Txfields;
 
@@ -83,6 +84,7 @@ public class FrmCategoria extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
         }
     }
+    
     
     public void limpiar(){
         txfBuscar.setText("");
@@ -162,6 +164,11 @@ public class FrmCategoria extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblCategoriaKeyPressed(evt);
+            }
+        });
         scpnlCategoria.setViewportView(tblCategoria);
 
         javax.swing.GroupLayout pnlCategoriasLayout = new javax.swing.GroupLayout(pnlCategorias);
@@ -285,6 +292,12 @@ public class FrmCategoria extends javax.swing.JDialog {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         llenarTabla();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void tblCategoriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblCategoriaKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_TAB){
+           txfBuscar.requestFocus();
+       }
+    }//GEN-LAST:event_tblCategoriaKeyPressed
 
     /**
      * @param args the command line arguments

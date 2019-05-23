@@ -13,6 +13,7 @@ import dao.Cliente;
 import dao.Producto;
 import dao.Factura;
 import dao.Conexion;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.util.HashMap;
@@ -348,6 +349,11 @@ public class FrmFactura extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblClientesKeyPressed(evt);
+            }
+        });
         spnlClientes.setViewportView(tblClientes);
 
         lblBuscarCliente.setText("Buscar Cliente:");
@@ -430,6 +436,11 @@ public class FrmFactura extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblProductos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblProductosKeyPressed(evt);
+            }
+        });
         spnlProductos.setViewportView(tblProductos);
 
         txfCantidad.setText("0");
@@ -495,6 +506,11 @@ public class FrmFactura extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDetalles.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblDetallesKeyPressed(evt);
+            }
+        });
         spnlDetalles.setViewportView(tblDetalles);
 
         btnQuitar.setText("Quitar Detalle");
@@ -732,6 +748,24 @@ public class FrmFactura extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void tblClientesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClientesKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_TAB){
+           btnSeleccionarCliente.requestFocus();
+       }
+    }//GEN-LAST:event_tblClientesKeyPressed
+
+    private void tblProductosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProductosKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_TAB){
+           btnAgregarProducto.requestFocus();
+       }
+    }//GEN-LAST:event_tblProductosKeyPressed
+
+    private void tblDetallesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDetallesKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_TAB){
+           btnQuitar.requestFocus();
+       }
+    }//GEN-LAST:event_tblDetallesKeyPressed
 
     private void generarReporte(int idFactura){
         Conexion con = new Conexion();

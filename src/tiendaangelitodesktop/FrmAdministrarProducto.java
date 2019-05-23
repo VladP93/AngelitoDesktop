@@ -133,6 +133,11 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtblProductos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtblProductosKeyPressed(evt);
+            }
+        });
         tblProductos.setViewportView(jtblProductos);
 
         lblCategoria.setText("(*) Código de Producto:");
@@ -693,6 +698,12 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void jtblProductosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtblProductosKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_TAB){
+           txfBuscar.requestFocus();
+       }
+    }//GEN-LAST:event_jtblProductosKeyPressed
 
     /**
      * @param args the command line arguments
