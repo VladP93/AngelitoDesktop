@@ -34,10 +34,10 @@ public class Conexion {
             sttm.executeUpdate(sql); //statement
         } catch (ClassNotFoundException c) {
             JOptionPane.showMessageDialog(null, "ERROR: " + c.getMessage());
-            System.exit(1); //salir de aplicación
+            //System.exit(1); //salir de aplicación
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR DE mysql: " + e.getMessage());
-            System.exit(1);
+            //System.exit(1);
         }
     }
 
@@ -50,10 +50,10 @@ public class Conexion {
             rst = sttm.executeQuery(sql);  //resultset
         } catch (ClassNotFoundException c) {
             JOptionPane.showMessageDialog(null, "ERROR: " + c.getMessage());
-            System.exit(1);
+            //System.exit(1);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-            System.exit(1);
+            //System.exit(1);
         } finally {
             return rst;
         }

@@ -49,7 +49,6 @@ public class FrmEditarUsuario extends javax.swing.JDialog {
         String datos;
         ResultSet rst = null;
         rst = usu.obtenerRoles();
-        cmbRol.removeAll();
         try {
             while (rst.next()){
                 datos = rst.getString(1);
