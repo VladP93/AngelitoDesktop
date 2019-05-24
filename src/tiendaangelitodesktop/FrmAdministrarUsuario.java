@@ -302,13 +302,12 @@ public class FrmAdministrarUsuario extends javax.swing.JDialog {
             txfAlias.setText("");
             cmbRol.setSelectedIndex(1);
         } else {
-            btnAsignarUsuario.setEnabled(false);
+            btnAsignarUsuario.setEnabled(true);
             btnEliminarUsuario.setEnabled(true);
             btnEditarUsuario.setEnabled(true);
             idUsuario = Integer.parseInt(tblUsuarios.getModel().getValueAt(idRow, 1).toString());
             idEmpleado = Integer.parseInt(tblUsuarios.getModel().getValueAt(idRow, 0).toString());
-            txfAlias.setText(tblUsuarios.getModel().getValueAt(idRow, 3).toString());
-            cmbRol.setSelectedIndex(Integer.parseInt(tblUsuarios.getModel().getValueAt(idRow, 4).toString())-1);
+            JOptionPane.showMessageDialog(this, "El empleado ya posee un usuario, pero puede asignarle otro.");
         }
         
         txfEmpleado.setText(tblUsuarios.getModel().getValueAt(idRow, 0).toString());

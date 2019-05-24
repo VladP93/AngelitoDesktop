@@ -35,6 +35,9 @@ public class FrmPersonas extends javax.swing.JDialog {
         llenarTabla1();
         setEntidades();
         lblAlerta.setText("");
+        if(Variables.tipoUsuario!=1){
+            btnAsignar.setVisible(false);
+        }
     }
     
     private void setEntidades(){

@@ -36,7 +36,7 @@ public class Usuario {
     public ResultSet usuariosAsignados(){
         return cnx.getValores("SELECT emp_idPersona, usu_idUsuario, per_nombre, per_apellido, "
                 + "usu_alias, usu_idTipoUsuario, tus_tipoUsuario "
-                + "FROM persona LEFT JOIN empleado ON persona.per_idPersona=empleado.emp_idPersona "
+                + "FROM persona INNER JOIN empleado ON persona.per_idPersona=empleado.emp_idPersona "
                 + "LEFT JOIN usuario ON empleado.emp_idPersona=usuario.usu_idPersona "
                 + "LEFT JOIN tipousuario ON usuario.usu_idTipoUsuario=tipousuario.tus_idTipoUsuario");
     }
