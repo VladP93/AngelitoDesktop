@@ -50,6 +50,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnRegistrar.setEnabled(false);
         btnReportes.setEnabled(false);
         btnSalir.setEnabled(false);
+        mniGenerarBackup.setEnabled(false);
     }
     
     private void activarPanelAdm(){
@@ -60,6 +61,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnRegistrar.setEnabled(true);
         btnReportes.setEnabled(true);
         btnSalir.setEnabled(true);
+        mniGenerarBackup.setEnabled(true);
     }
     
     private void activarPanelVendedor(){
@@ -70,6 +72,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnRegistrar.setEnabled(true);
         btnReportes.setEnabled(false);
         btnSalir.setEnabled(false);
+        mniGenerarBackup.setEnabled(false);
     }
     
     private void reposicionarBtn(){
@@ -123,10 +126,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnDesconectar = new javax.swing.JButton();
         btnCompras = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        mnuGenerarBackup = new javax.swing.JMenuItem();
+        mbarPrincipal = new javax.swing.JMenuBar();
+        menuFile = new javax.swing.JMenu();
+        menuTools = new javax.swing.JMenu();
+        mniGenerarBackup = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Tienda Angelito");
@@ -157,7 +160,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnReportes.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/reporte1.png"))); // NOI18N
         btnReportes.setText("Reportes");
-        btnReportes.setBorder(null);
         btnReportes.setBorderPainted(false);
         btnReportes.setContentAreaFilled(false);
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -177,7 +179,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnProductos.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/productos1.png"))); // NOI18N
         btnProductos.setText("Productos");
-        btnProductos.setBorder(null);
         btnProductos.setBorderPainted(false);
         btnProductos.setContentAreaFilled(false);
         btnProductos.setFocusPainted(false);
@@ -196,7 +197,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnFacturar.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         btnFacturar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/Factura1.png"))); // NOI18N
         btnFacturar.setText("Facturar");
-        btnFacturar.setBorder(null);
         btnFacturar.setBorderPainted(false);
         btnFacturar.setContentAreaFilled(false);
         btnFacturar.setFocusPainted(false);
@@ -216,7 +216,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnRegistrar.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/registrar1.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
-        btnRegistrar.setBorder(null);
         btnRegistrar.setBorderPainted(false);
         btnRegistrar.setContentAreaFilled(false);
         btnRegistrar.setFocusPainted(false);
@@ -235,7 +234,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnDesconectar.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         btnDesconectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/desconectar1.png"))); // NOI18N
         btnDesconectar.setText("Desconectar");
-        btnDesconectar.setBorder(null);
         btnDesconectar.setBorderPainted(false);
         btnDesconectar.setContentAreaFilled(false);
         btnDesconectar.setFocusPainted(false);
@@ -254,7 +252,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnCompras.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         btnCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/compras1.png"))); // NOI18N
         btnCompras.setText("Compras");
-        btnCompras.setBorder(null);
         btnCompras.setBorderPainted(false);
         btnCompras.setContentAreaFilled(false);
         btnCompras.setFocusPainted(false);
@@ -273,7 +270,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnSalir.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/cerrar1.png"))); // NOI18N
         btnSalir.setText("Salir");
-        btnSalir.setBorder(null);
         btnSalir.setBorderPainted(false);
         btnSalir.setContentAreaFilled(false);
         btnSalir.setFocusPainted(false);
@@ -289,24 +285,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("Archivo");
-        jMenu1.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
-        jMenuBar1.add(jMenu1);
+        menuFile.setText("Archivo");
+        menuFile.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        mbarPrincipal.add(menuFile);
 
-        jMenu2.setText("Herramientas");
-        jMenu2.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+        menuTools.setText("Herramientas");
+        menuTools.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
 
-        mnuGenerarBackup.setText("Generar back-up");
-        mnuGenerarBackup.addActionListener(new java.awt.event.ActionListener() {
+        mniGenerarBackup.setText("Generar back-up");
+        mniGenerarBackup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuGenerarBackupActionPerformed(evt);
+                mniGenerarBackupActionPerformed(evt);
             }
         });
-        jMenu2.add(mnuGenerarBackup);
+        menuTools.add(mniGenerarBackup);
 
-        jMenuBar1.add(jMenu2);
+        mbarPrincipal.add(menuTools);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(mbarPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -411,7 +407,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         per.setVisible(true);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    private void mnuGenerarBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGenerarBackupActionPerformed
+    private void mniGenerarBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniGenerarBackupActionPerformed
         FileReader fr;
         JFileChooser chooser = new JFileChooser();
         FileWriter fw;
@@ -445,7 +441,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
-    }//GEN-LAST:event_mnuGenerarBackupActionPerformed
+    }//GEN-LAST:event_mniGenerarBackupActionPerformed
 
     private String buPersonas(){
         String insertPersonas="";
@@ -776,10 +772,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JMenuItem mnuGenerarBackup;
+    private javax.swing.JMenuBar mbarPrincipal;
+    private javax.swing.JMenu menuFile;
+    private javax.swing.JMenu menuTools;
+    private javax.swing.JMenuItem mniGenerarBackup;
     // End of variables declaration//GEN-END:variables
 }

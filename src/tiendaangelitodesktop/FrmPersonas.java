@@ -145,6 +145,7 @@ public class FrmPersonas extends javax.swing.JDialog {
         lblISSS = new javax.swing.JLabel();
         txfISSS = new javax.swing.JTextField();
         lblTipo = new javax.swing.JLabel();
+        btnAsignar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -346,6 +347,13 @@ public class FrmPersonas extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        btnAsignar.setText("Asignación de usuarios");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlRegistroLayout = new javax.swing.GroupLayout(pnlRegistro);
         pnlRegistro.setLayout(pnlRegistroLayout);
         pnlRegistroLayout.setHorizontalGroup(
@@ -358,6 +366,8 @@ public class FrmPersonas extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlRegistroLayout.createSequentialGroup()
+                        .addComponent(btnAsignar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAlerta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDetalles)
@@ -367,22 +377,21 @@ public class FrmPersonas extends javax.swing.JDialog {
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalir))
-                    .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlRegistroLayout.createSequentialGroup()
-                            .addComponent(scrRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(pnlRegistroLayout.createSequentialGroup()
-                            .addComponent(lblEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(chkCliente)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(chkEmpleado)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(chkProveedor)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLimpiar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnAgregar))))
+                    .addGroup(pnlRegistroLayout.createSequentialGroup()
+                        .addComponent(scrRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlRegistroLayout.createSequentialGroup()
+                        .addComponent(lblEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(chkCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkEmpleado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chkProveedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLimpiar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAgregar)))
                 .addContainerGap())
         );
         pnlRegistroLayout.setVerticalGroup(
@@ -392,14 +401,15 @@ public class FrmPersonas extends javax.swing.JDialog {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkCliente)
-                    .addComponent(chkEmpleado)
-                    .addComponent(chkProveedor)
-                    .addComponent(lblEntidad)
+                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAgregar)
-                        .addComponent(btnLimpiar)))
+                        .addComponent(btnLimpiar))
+                    .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(chkCliente)
+                        .addComponent(chkEmpleado)
+                        .addComponent(chkProveedor)
+                        .addComponent(lblEntidad)))
                 .addGap(10, 10, 10)
                 .addComponent(scrRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -408,7 +418,8 @@ public class FrmPersonas extends javax.swing.JDialog {
                     .addComponent(btnSalir)
                     .addComponent(btnEliminar)
                     .addComponent(btnDetalles)
-                    .addComponent(lblAlerta)))
+                    .addComponent(lblAlerta)
+                    .addComponent(btnAsignar)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -646,6 +657,11 @@ public class FrmPersonas extends javax.swing.JDialog {
        }
     }//GEN-LAST:event_tblPersonaKeyPressed
 
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        FrmAdministrarUsuario adus = new FrmAdministrarUsuario(this.parent, true);
+        adus.setVisible(true);
+    }//GEN-LAST:event_btnAsignarActionPerformed
+
     private void insertarEntidades(int idPersona){
         if(chkCliente.isSelected()){
             per.agregarCliente(idPersona);
@@ -731,6 +747,7 @@ public class FrmPersonas extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Cargos;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnDetalles;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
