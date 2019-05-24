@@ -56,6 +56,10 @@ public class Usuario {
                 + "WHERE usu_alias='"+usu+"' AND usu_contrasenia=MD5('"+pass+"')");
     }
     
+    public ResultSet comprobarPass(int idUsuario, String pass){
+        return cnx.getValores("SELECT 1 FROM usuario WHERE usu_idUsuario="+idUsuario+" AND usu_contrasenia=MD5('"+pass+"');");
+    }
+    
     public ResultSet usuarios(String usu){
         return cnx.getValores("SELECT * FROM usuario "
                 + "INNER JOIN tipoUsuario ON usu_idTipoUsuario=tus_idTipoUsuario "

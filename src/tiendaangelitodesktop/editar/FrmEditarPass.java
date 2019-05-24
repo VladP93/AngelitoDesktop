@@ -6,6 +6,8 @@
 package tiendaangelitodesktop.editar;
 
 import dao.Usuario;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import tiendaangelitodesktop.Variables;
 
@@ -15,6 +17,7 @@ import tiendaangelitodesktop.Variables;
  */
 public class FrmEditarPass extends javax.swing.JDialog {
     Usuario usu = new Usuario();
+    ResultSet rst;
     /**
      * Creates new form FrmEditarPass
      */
@@ -38,6 +41,8 @@ public class FrmEditarPass extends javax.swing.JDialog {
         txfPass2 = new javax.swing.JPasswordField();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lblPass0 = new javax.swing.JLabel();
+        txfPass0 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -59,6 +64,8 @@ public class FrmEditarPass extends javax.swing.JDialog {
             }
         });
 
+        lblPass0.setText("Contraseña Actual:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -66,25 +73,31 @@ public class FrmEditarPass extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblPass2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txfPass)
-                            .addComponent(txfPass2, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(btnAceptar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)))
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblPass0, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPass2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txfPass)
+                            .addComponent(txfPass2, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(txfPass0))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPass0)
+                    .addComponent(txfPass0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPass)
                     .addComponent(txfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -107,23 +120,35 @@ public class FrmEditarPass extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        String pass="", pass2="";
+        String pass="", pass2="", pass0="";
         
-        if(txfPass.getPassword().length!=txfPass2.getPassword().length){
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
-        } else {
-            for(int i=0;i<txfPass.getPassword().length;i++){
-                pass=pass+txfPass.getPassword()[i];
-                pass2=pass2+txfPass2.getPassword()[i];
-            }
+        for(int i=0;i<txfPass0.getPassword().length;i++){
+            pass0=pass0+txfPass0.getPassword()[i];
         }
         
-        if(pass.equals(pass2)){
-            usu.cambiarPass(Variables.idUsuario, pass);
-            JOptionPane.showMessageDialog(this, "Contraseña cambiada exitosamente.");
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+        try{
+            rst = usu.comprobarPass(Variables.idUsuario, pass0);
+            if(rst.next()){
+                if(txfPass.getPassword().length!=txfPass2.getPassword().length){
+                    JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+                } else {
+                    for(int i=0;i<txfPass.getPassword().length;i++){
+                        pass=pass+txfPass.getPassword()[i];
+                        pass2=pass2+txfPass2.getPassword()[i];
+                    }
+                    if(pass.equals(pass2)){
+                        usu.cambiarPass(Variables.idUsuario, pass);
+                        JOptionPane.showMessageDialog(this, "Contraseña cambiada exitosamente.");
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+                    }
+                }
+            } else{
+                JOptionPane.showMessageDialog(this, "Contraseña actual incorrecta");
+            }
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
         
     }//GEN-LAST:event_btnAceptarActionPerformed
@@ -174,8 +199,10 @@ public class FrmEditarPass extends javax.swing.JDialog {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel lblPass;
+    private javax.swing.JLabel lblPass0;
     private javax.swing.JLabel lblPass2;
     private javax.swing.JPasswordField txfPass;
+    private javax.swing.JPasswordField txfPass0;
     private javax.swing.JPasswordField txfPass2;
     // End of variables declaration//GEN-END:variables
 }
