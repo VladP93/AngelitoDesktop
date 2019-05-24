@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="321" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -36,15 +36,15 @@
                       <Component id="btnCancelar" min="-2" pref="101" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="310" max="32767" attributes="0"/>
+              <EmptySpace pref="387" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jPanel2" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -67,7 +67,7 @@
                       <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                       <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="41" max="32767" attributes="0"/>
+                  <EmptySpace pref="38" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -79,54 +79,62 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblCategoria5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblCategoria6" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblCategoria7" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblCategoria8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblCategoria9" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblCategoria5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblCategoria6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblCategoria7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblCategoria8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblCategoria9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblCategoria3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblCategoria4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="72" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="lblCategoria13" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="lblCategoria12" alignment="1" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="txfExistencia" min="-2" pref="98" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblCategoria11" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="txfIva" min="-2" pref="43" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblCategoria10" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="txfPrecDetalle" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                              <Component id="txfPrecMayoreo" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                              <Component id="txfMinMayoreo" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                              <Component id="txfAlerta" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="cmbCategoria" min="-2" pref="190" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnNuevaCat" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblCategoria3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblCategoria4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="72" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="lblCategoria13" alignment="1" max="32767" attributes="0"/>
-                              <Component id="lblCategoria12" alignment="1" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="cmbCategoria" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="txfExistencia" min="-2" pref="98" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblCategoria11" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="txfIva" min="-2" pref="43" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblCategoria10" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="txfPrecDetalle" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
-                      <Component id="txfPrecMayoreo" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
-                      <Component id="txfMinMayoreo" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
-                      <Component id="txfAlerta" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -172,6 +180,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCategoria9" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmbCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNuevaCat" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="17" max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -292,6 +301,14 @@
             <Property name="text" type="java.lang.String" value="(*) Campos obligatorios"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="btnNuevaCat">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nueva Categoria"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevaCatActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -341,7 +358,7 @@
                       <Component id="lblCategoria2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

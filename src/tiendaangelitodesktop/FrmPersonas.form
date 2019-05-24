@@ -122,6 +122,12 @@
                           <Component id="chkProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblEntidad" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="chkCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEntidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="scrRegistro" min="-2" pref="91" max="-2" attributes="0"/>

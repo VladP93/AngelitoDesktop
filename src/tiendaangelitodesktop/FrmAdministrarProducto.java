@@ -7,6 +7,7 @@ package tiendaangelitodesktop;
 
 import dao.Categoria;
 import dao.Producto;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,8 @@ import tiendaangelitodesktop.editar.FrmEditarProducto;
 public class FrmAdministrarProducto extends javax.swing.JDialog {
     Producto prod =new Producto();
     Categoria cat = new Categoria();
-    DefaultTableModel model; 
+    DefaultTableModel model;
+    Frame parent;
 
     
     /**
@@ -30,11 +32,14 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
      * @param modal
      */
     public FrmAdministrarProducto(java.awt.Frame parent, boolean modal) {
+        
         super(parent, modal);
+        this.parent=parent;
         initComponents();
         this.setLocationRelativeTo(null);
         llenarTabla();
         llenarCategorias();
+        
     }
 
     /**
@@ -82,6 +87,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
         lblCategoria12 = new javax.swing.JLabel();
         lblCategoria13 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        btnNuevaCat = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -240,6 +246,13 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
 
         jLabel1.setText("(*) Campos obligatorios");
 
+        btnNuevaCat.setText("Nueva Categoria");
+        btnNuevaCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaCatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -265,7 +278,10 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                             .addComponent(lblCategoria12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(4, 4, 4)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnNuevaCat))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txfExistencia2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -278,7 +294,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     .addComponent(txfPrecMayoreo2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txfMinMayoreo2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txfAlerta2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 52, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -318,7 +334,8 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria9)
-                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevaCat))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jLabel1))
         );
@@ -378,7 +395,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
                     .addComponent(btnSalir)
                     .addComponent(btnEliminar)
                     .addComponent(btnEditar))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -705,6 +722,11 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
        }
     }//GEN-LAST:event_jtblProductosKeyPressed
 
+    private void btnNuevaCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCatActionPerformed
+        FrmCategoria catego = new FrmCategoria(this.parent, true);
+        catego.setVisible(true);
+    }//GEN-LAST:event_btnNuevaCatActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -873,6 +895,7 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnNuevaCat;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JLabel jLabel1;
