@@ -6,58 +6,21 @@
 package tiendaangelitodesktop.editar;
 
 import dao.Usuario;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import tiendaangelitodesktop.Variables;
 
 /**
  *
  * @author vladi
  */
-public class FrmEditarUsuario extends javax.swing.JDialog {
-    int idUsuario;
+public class FrmEditarPass extends javax.swing.JDialog {
     Usuario usu = new Usuario();
-    ResultSet rst;
-
     /**
-     * Creates new form FrmEditarUsuario
+     * Creates new form FrmEditarPass
      */
-    public FrmEditarUsuario(java.awt.Frame parent, boolean modal, int idUsuario) {
+    public FrmEditarPass(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.idUsuario = idUsuario;
-        llenarRol();
-        obtenerDatos();
-    }
-    
-    private void obtenerDatos(){
-        try {
-            rst = usu.usuarioById(idUsuario);
-            while(rst.next()){
-                txfAlias.setText(rst.getString(1));
-                txfPass.setText(rst.getString(2));
-                cmbRol.setSelectedItem(rst.getString(3));
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }
-    
-    private void llenarRol(){
-        String datos;
-        ResultSet rst = null;
-        rst = usu.obtenerRoles();
-        cmbRol.removeAll();
-        try {
-            while (rst.next()){
-                datos = rst.getString(1);
-                cmbRol.addItem(datos);
-            }    
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     /**
@@ -69,22 +32,18 @@ public class FrmEditarUsuario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txfAlias = new javax.swing.JTextField();
+        lblPass = new javax.swing.JLabel();
+        lblPass2 = new javax.swing.JLabel();
         txfPass = new javax.swing.JPasswordField();
-        cmbRol = new javax.swing.JComboBox<>();
+        txfPass2 = new javax.swing.JPasswordField();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Alias:");
+        lblPass.setText("Nueva Contraseña:");
 
-        jLabel2.setText("Contraseña:");
-
-        jLabel3.setText("Rol:");
+        lblPass2.setText("Repetir Contraseña:");
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,41 +64,34 @@ public class FrmEditarUsuario extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblPass2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txfAlias)
                             .addComponent(txfPass)
-                            .addComponent(cmbRol, 0, 200, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txfPass2, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(67, 67, 67)
                         .addComponent(btnAceptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnCancelar)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblPass)
                     .addComponent(txfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cmbRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPass2)
+                    .addComponent(txfPass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
@@ -155,33 +107,27 @@ public class FrmEditarUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        int idTipoUsuario=2;
-        String alias;
-        String pass="";
+        String pass="", pass2="";
         
-        alias = txfAlias.getText();
-        for(int i=0;i<txfPass.getPassword().length;i++){
-            pass=pass+txfPass.getPassword()[i];
+        if(txfPass.getPassword().length!=txfPass2.getPassword().length){
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+        } else {
+            for(int i=0;i<txfPass.getPassword().length;i++){
+                pass=pass+txfPass.getPassword()[i];
+                pass2=pass2+txfPass2.getPassword()[i];
+            }
         }
         
-        try {
-            rst = usu.obtenerIdRol(cmbRol.getSelectedItem().toString());
-            while(rst.next()){
-                idTipoUsuario = rst.getInt(1);
-            }
-            if(alias.isEmpty() || pass.isEmpty()){
-                JOptionPane.showMessageDialog(this, "No se puede dejar campos vacíos");
-            }else{
-                usu.editarUsuario(idUsuario, idTipoUsuario, alias, pass);
-                JOptionPane.showMessageDialog(this, "Usuario modificado correctamente");
-                this.dispose();
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+        if(pass.equals(pass2)){
+            usu.cambiarPass(Variables.idUsuario, pass);
+            JOptionPane.showMessageDialog(this, "Contraseña cambiada exitosamente.");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
         }
+        
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
@@ -199,20 +145,20 @@ public class FrmEditarUsuario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmEditarPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmEditarPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmEditarPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmEditarPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmEditarUsuario dialog = new FrmEditarUsuario(new javax.swing.JFrame(), true, 0);
+                FrmEditarPass dialog = new FrmEditarPass(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -227,11 +173,9 @@ public class FrmEditarUsuario extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JComboBox<String> cmbRol;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txfAlias;
+    private javax.swing.JLabel lblPass;
+    private javax.swing.JLabel lblPass2;
     private javax.swing.JPasswordField txfPass;
+    private javax.swing.JPasswordField txfPass2;
     // End of variables declaration//GEN-END:variables
 }

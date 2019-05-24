@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
+import tiendaangelitodesktop.editar.FrmEditarPass;
 
 /**
  *
@@ -51,6 +52,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnReportes.setEnabled(false);
         btnSalir.setEnabled(false);
         mniGenerarBackup.setEnabled(false);
+        mniCambiarPass.setEnabled(false);
+        mniSalir.setEnabled(false);
     }
     
     private void activarPanelAdm(){
@@ -62,6 +65,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnReportes.setEnabled(true);
         btnSalir.setEnabled(true);
         mniGenerarBackup.setEnabled(true);
+        mniCambiarPass.setEnabled(true);
+        mniSalir.setEnabled(true);
     }
     
     private void activarPanelVendedor(){
@@ -73,6 +78,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnReportes.setEnabled(false);
         btnSalir.setEnabled(false);
         mniGenerarBackup.setEnabled(false);
+        mniCambiarPass.setEnabled(true);
+        mniSalir.setEnabled(false);
     }
     
     private void reposicionarBtn(){
@@ -128,8 +135,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         mbarPrincipal = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
+        mniSalir = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         mniGenerarBackup = new javax.swing.JMenuItem();
+        mniCambiarPass = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Tienda Angelito");
@@ -287,6 +296,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuFile.setText("Archivo");
         menuFile.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
+
+        mniSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        mniSalir.setText("Salir");
+        mniSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniSalirActionPerformed(evt);
+            }
+        });
+        menuFile.add(mniSalir);
+
         mbarPrincipal.add(menuFile);
 
         menuTools.setText("Herramientas");
@@ -299,6 +318,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menuTools.add(mniGenerarBackup);
+
+        mniCambiarPass.setText("Cambiar contraseña");
+        mniCambiarPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCambiarPassActionPerformed(evt);
+            }
+        });
+        menuTools.add(mniCambiarPass);
 
         mbarPrincipal.add(menuTools);
 
@@ -442,6 +469,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_mniGenerarBackupActionPerformed
+
+    private void mniCambiarPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCambiarPassActionPerformed
+        FrmEditarPass edPass = new FrmEditarPass(this, true);
+        edPass.setVisible(true);
+    }//GEN-LAST:event_mniCambiarPassActionPerformed
+
+    private void mniSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_mniSalirActionPerformed
 
     private String buPersonas(){
         String insertPersonas="";
@@ -776,6 +812,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar mbarPrincipal;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuTools;
+    private javax.swing.JMenuItem mniCambiarPass;
     private javax.swing.JMenuItem mniGenerarBackup;
+    private javax.swing.JMenuItem mniSalir;
     // End of variables declaration//GEN-END:variables
 }
