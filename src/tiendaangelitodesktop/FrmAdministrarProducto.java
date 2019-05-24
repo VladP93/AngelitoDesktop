@@ -32,12 +32,14 @@ public class FrmAdministrarProducto extends javax.swing.JDialog {
      * @param modal
      */
     public FrmAdministrarProducto(java.awt.Frame parent, boolean modal) {
+        
         super(parent, modal);
+        this.parent=parent;
         initComponents();
         this.setLocationRelativeTo(null);
         llenarTabla();
         llenarCategorias();
-        this.parent=parent;
+        
     }
 
     /**
