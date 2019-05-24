@@ -54,9 +54,9 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="txfPass" max="32767" attributes="0"/>
-                          <Component id="cmbRol" pref="150" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txfPass" pref="150" max="32767" attributes="0"/>
+                          <Component id="cmbRol" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -78,11 +78,13 @@
                   <Component id="cmbRol" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txfAlias" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblAlias" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblPass" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txfPass" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txfAlias" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPass" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txfPass" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -168,6 +170,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfFiltrar">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txfFiltrarKeyReleased"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scpnlUsuarios">
 

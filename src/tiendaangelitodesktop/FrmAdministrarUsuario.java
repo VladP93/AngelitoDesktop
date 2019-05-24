@@ -77,6 +77,43 @@ public class FrmAdministrarUsuario extends javax.swing.JDialog {
         }
     }
     
+    private void filtrarTabla(String filtro){
+        Object datos[] = new Object[6];
+        rst = null;
+        rst = usu.usuariosAsignados(filtro);
+        model = new DefaultTableModel();
+        model.addColumn("idEmpleado");
+        model.addColumn("idUsuario");
+        model.addColumn("Empleado");
+        model.addColumn("Alias");
+        model.addColumn("idRol");
+        model.addColumn("Rol");
+        try {
+            while (rst.next()){
+                datos[0] = rst.getString(1);
+                datos[1] = rst.getString(2);
+                datos[2] = rst.getString(3) + " " + rst.getString(4);
+                datos[3] = rst.getString(5);
+                datos[4] = rst.getString(6);
+                datos[5] = rst.getString(7);
+                model.addRow(datos);
+            }
+            
+            tblUsuarios.setModel(model);
+            tblUsuarios.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblUsuarios.getColumnModel().getColumn(0).setMinWidth(0);
+            tblUsuarios.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblUsuarios.getColumnModel().getColumn(1).setMaxWidth(0);
+            tblUsuarios.getColumnModel().getColumn(1).setMinWidth(0);
+            tblUsuarios.getColumnModel().getColumn(1).setPreferredWidth(0);
+            tblUsuarios.getColumnModel().getColumn(4).setMaxWidth(0);
+            tblUsuarios.getColumnModel().getColumn(4).setMinWidth(0);
+            tblUsuarios.getColumnModel().getColumn(4).setPreferredWidth(0);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     private void llenarRoles(){
         String datos;
         ResultSet rst = null;
@@ -140,6 +177,12 @@ public class FrmAdministrarUsuario extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Empleados"));
 
         lblFiltrar.setText("Filtrar:");
+
+        txfFiltrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txfFiltrarKeyReleased(evt);
+            }
+        });
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -248,9 +291,9 @@ public class FrmAdministrarUsuario extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(lblPass)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txfPass)
-                            .addComponent(cmbRol, 0, 150, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txfPass, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(cmbRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -266,11 +309,12 @@ public class FrmAdministrarUsuario extends javax.swing.JDialog {
                     .addComponent(lblRol)
                     .addComponent(cmbRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAlias)
-                    .addComponent(lblPass)
-                    .addComponent(txfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPass)
+                        .addComponent(txfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAsignarUsuario)
@@ -361,6 +405,11 @@ public class FrmAdministrarUsuario extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txfFiltrarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfFiltrarKeyReleased
+        String filtro = txfFiltrar.getText();
+        filtrarTabla(filtro);
+    }//GEN-LAST:event_txfFiltrarKeyReleased
 
     
     private void limpiar(){

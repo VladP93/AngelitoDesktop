@@ -41,6 +41,15 @@ public class Usuario {
                 + "LEFT JOIN tipousuario ON usuario.usu_idTipoUsuario=tipousuario.tus_idTipoUsuario");
     }
     
+    public ResultSet usuariosAsignados(String filtro){
+        return cnx.getValores("SELECT emp_idPersona, usu_idUsuario, per_nombre, per_apellido, "
+                + "usu_alias, usu_idTipoUsuario, tus_tipoUsuario "
+                + "FROM persona INNER JOIN empleado ON persona.per_idPersona=empleado.emp_idPersona "
+                + "LEFT JOIN usuario ON empleado.emp_idPersona=usuario.usu_idPersona "
+                + "LEFT JOIN tipousuario ON usuario.usu_idTipoUsuario=tipousuario.tus_idTipoUsuario "
+                + "WHERE per_nombre LIKE '"+filtro+"%' OR per_apellido LIKE '"+filtro+"%'");
+    }
+    
     public ResultSet obtenerRoles(){
         return cnx.getValores("SELECT tus_tipousuario FROM tipousuario");
     }
