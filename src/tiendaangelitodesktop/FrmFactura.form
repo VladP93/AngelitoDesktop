@@ -81,7 +81,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="spnlClientes" pref="632" max="32767" attributes="0"/>
+                      <Component id="spnlClientes" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblBuscarCliente" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -232,12 +232,15 @@
                                   <Component id="lblBuscarProd" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txfProducto" min="-2" pref="232" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
                                   <Component id="lblCantidad" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txfCantidad" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnAgregarProducto" min="-2" pref="152" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="btnAgregarProducto" min="-2" pref="152" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnNuevoProducto" min="-2" pref="158" max="-2" attributes="0"/>
@@ -253,14 +256,16 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txfProducto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnNuevoProducto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txfCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblBuscarProd" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="spnlProductos" pref="67" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnAgregarProducto" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnAgregarProducto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txfCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -352,7 +357,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblCantidad">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cantidad:"/>
+            <Property name="text" type="java.lang.String" value="Cantidad a Facturar:"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -373,7 +378,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="spnlDetalles" alignment="1" pref="632" max="32767" attributes="0"/>
+                      <Component id="spnlDetalles" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="btnQuitar" min="-2" pref="152" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>

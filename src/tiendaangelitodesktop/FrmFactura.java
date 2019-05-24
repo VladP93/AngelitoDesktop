@@ -369,7 +369,7 @@ public class FrmFactura extends javax.swing.JDialog {
             .addGroup(pnlClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spnlClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
+                    .addComponent(spnlClientes)
                     .addGroup(pnlClienteLayout.createSequentialGroup()
                         .addComponent(lblBuscarCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -452,7 +452,7 @@ public class FrmFactura extends javax.swing.JDialog {
 
         lblBuscarProd.setText("Buscar Producto:");
 
-        lblCantidad.setText("Cantidad:");
+        lblCantidad.setText("Cantidad a Facturar:");
 
         javax.swing.GroupLayout pnlProductoLayout = new javax.swing.GroupLayout(pnlProducto);
         pnlProducto.setLayout(pnlProductoLayout);
@@ -467,12 +467,14 @@ public class FrmFactura extends javax.swing.JDialog {
                             .addGroup(pnlProductoLayout.createSequentialGroup()
                                 .addComponent(lblBuscarProd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txfProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(txfProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlProductoLayout.createSequentialGroup()
                                 .addComponent(lblCantidad)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(199, 199, 199)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNuevoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -483,13 +485,14 @@ public class FrmFactura extends javax.swing.JDialog {
                 .addGroup(pnlProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txfProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNuevoProducto)
-                    .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBuscarProd)
-                    .addComponent(lblCantidad))
+                    .addComponent(lblBuscarProd))
                 .addGap(18, 18, 18)
                 .addComponent(spnlProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAgregarProducto)
+                .addGroup(pnlProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarProducto)
+                    .addComponent(lblCantidad)
+                    .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -571,7 +574,7 @@ public class FrmFactura extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(pnlDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spnlDetalles, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
+                    .addComponent(spnlDetalles, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlDetalleLayout.createSequentialGroup()
                         .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -645,6 +648,8 @@ public class FrmFactura extends javax.swing.JDialog {
 
     private void txfClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfClienteActionPerformed
         seleccionarCliente();
+        txfCliente.setText("");
+        txfProducto.requestFocus();
     }//GEN-LAST:event_txfClienteActionPerformed
 
     private void txfClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfClienteKeyReleased
@@ -658,21 +663,41 @@ public class FrmFactura extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegistrarClienteActionPerformed
 
     private void txfProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfProductoActionPerformed
-        if(Integer.parseInt(txfCantidad.getText())>0){
+        if(txfProducto.getText().length()>0){
+                       
+            if(Integer.parseInt(txfCantidad.getText())>0){
             agregarDetalle(seleccionarProducto(),Integer.parseInt(txfCantidad.getText()));
+            txfCantidad.setText("0");
+            txfProducto.setText("");
+            txfProducto.requestFocus();
+            
+            }else{
+                txfCantidad.requestFocus();
+            }
+            
+        }else{
+            btnFacturar.requestFocus();
         }
+        
+
     }//GEN-LAST:event_txfProductoActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         if(Integer.parseInt(txfCantidad.getText())>0){
             agregarDetalle(seleccionarProducto(),Integer.parseInt(txfCantidad.getText()));
+            txfCantidad.setText("0");
+            txfProducto.setText("");
+            txfProducto.requestFocus();
         }
-        txfCantidad.setText("0");
+        
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void txfCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfCantidadActionPerformed
         if(Integer.parseInt(txfCantidad.getText())>0){
             agregarDetalle(seleccionarProducto(),Integer.parseInt(txfCantidad.getText()));
+            txfCantidad.setText("0");
+            txfProducto.setText("");
+            txfProducto.requestFocus();
         }
     }//GEN-LAST:event_txfCantidadActionPerformed
 
@@ -705,6 +730,8 @@ public class FrmFactura extends javax.swing.JDialog {
                         rst = fac.facturar(idFactura, idPersona, idUsuario, idProducto, cantidad);
                         rst.next();
                         JOptionPane.showMessageDialog(null, rst.getString(1));
+                        txfCliente.requestFocus();
+                        
                     } catch (SQLException ex) {
                         Logger.getLogger(FrmFactura.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -726,15 +753,21 @@ public class FrmFactura extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        JOptionPane.showConfirmDialog (null, "Se perderán los datos de la presente factura. "
-        + "¿Está usted seguro que desea salir? ","WARNING", dialogButton);
-        
-        if(dialogButton == JOptionPane.YES_OPTION) {
+        if(tblDetalles.getRowCount()>0){
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            JOptionPane.showConfirmDialog (null, "Se perderán los datos de la presente factura. "
+            + "¿Está usted seguro que desea salir? ","WARNING", dialogButton);
+
+            if(dialogButton == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }else if(dialogButton == JOptionPane.NO_OPTION) {
+                remove(dialogButton);
+            }
+            
+        }else{
             this.dispose();
-        }else if(dialogButton == JOptionPane.NO_OPTION) {
-            remove(dialogButton);
         }
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed

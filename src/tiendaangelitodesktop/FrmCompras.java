@@ -539,6 +539,7 @@ public class FrmCompras extends javax.swing.JDialog {
                         rst = comp.comprar(codLote, idProducto, fechaFab, fechaVen, cantidad, precio, idCompra, idPersona, idProveedor);
                         rst.next();
                         JOptionPane.showMessageDialog(null, rst.getString(1));
+                        
                     } catch (SQLException ex) {
                         Logger.getLogger(FrmFactura.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -548,6 +549,7 @@ public class FrmCompras extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Seleccione un Proveedor");
         }
         actualizar();
+        txfProveedor.requestFocus();
     
     }//GEN-LAST:event_btnRegCompraActionPerformed
    
@@ -583,6 +585,7 @@ public class FrmCompras extends javax.swing.JDialog {
             agregarDetalle(obtenerIdProducto());
             
             limpiarDatosDetalle();
+            txfProveedor.requestFocus();
         }
         
 
@@ -616,7 +619,8 @@ public class FrmCompras extends javax.swing.JDialog {
     }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        int dialogButton = JOptionPane.YES_NO_OPTION;
+        if(tblDetalles.getRowCount()>0){
+            int dialogButton = JOptionPane.YES_NO_OPTION;
         JOptionPane.showConfirmDialog (null, "Se perderán los datos de la presente compra. "
         + "¿Está usted seguro que desea salir? ","WARNING", dialogButton);
         
@@ -625,6 +629,11 @@ public class FrmCompras extends javax.swing.JDialog {
         }else if(dialogButton == JOptionPane.NO_OPTION) {
             remove(dialogButton);
         }
+            
+        }else{
+            this.dispose();
+        }
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txfCodLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfCodLoteActionPerformed
