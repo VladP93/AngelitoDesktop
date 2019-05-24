@@ -11,7 +11,7 @@ CREATE TABLE persona(
     per_isss VARCHAR(9) UNIQUE,
     per_nombre VARCHAR(255) NOT NULL,
     per_apellido VARCHAR(255),
-    per_direccion VARCHAR(255) NOT NULL UNIQUE,
+    per_direccion VARCHAR(255) NOT NULL,
     per_telefono VARCHAR(9) UNIQUE,
     per_email VARCHAR(100) UNIQUE,
     per_natural BOOLEAN NULL DEFAULT TRUE
